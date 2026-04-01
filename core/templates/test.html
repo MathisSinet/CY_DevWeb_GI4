@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Django + Vue Simple</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+
+<h1>Démo Django + Vue</h1>
+
+<div id="app">
+    <p>[[ message ]]</p>
+    <button @click="increment">Compteur : [[ count ]]</button>
+</div>
+
+<script>
+    const { createApp } = Vue
+
+    createApp({
+        delimiters: ['[[', ']]'],
+        data() {
+            return {
+                message: "Hello depuis Vue intégré à Django",
+                count: 0
+            }
+        },
+        methods: {
+            increment() {
+                this.count++
+            }
+        }
+    }).mount('#app')
+</script>
+
+</body>
+</html>
