@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #F9F4EF; /* Crème Nuage */
-    color: #4A3B33; /* Marron Logo */
+    background-color: #F9F4EF;
+    color: #4A3B33;
     line-height: 1.6;
 }
 
@@ -34,10 +34,9 @@ header {
 }
 
 .logo-mini {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    border: 2px solid #F9F4EF;
     object-fit: cover;
 }
 
@@ -163,7 +162,6 @@ nav {
     color: white;
 }
 
-/* --- SECTION HERO (BIENVENUE) --- */
 .hero {
     background: linear-gradient(rgba(249, 244, 239, 0.7), rgba(230, 213, 195, 0.7)), 
                 url('index.png');
@@ -196,7 +194,42 @@ nav {
 .btn-primary { background: #4A3B33; color: #F9F4EF; }
 .btn-secondary { background: white; color: #4A3B33; border: 1px solid #E6D5C3; }
 
-.btn-primary:hover { background: #D2B48C; }
+
+.smart-features {
+    background-color: #4A3B33;
+    padding: 10px;
+    color: #F9F4EF;
+}
+
+.white { color: #F9F4EF; }
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(210, 180, 140, 0.3);
+}
+
+.feature-item i {
+    font-size: 2.5rem;
+    color: #D2B48C;
+    margin-bottom: 15px;
+}
+
+.feature-item h4 {
+    font-family: 'Cinzel', serif;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
 
 /* --- CONTENU & GRILLES --- */
 .container {
@@ -228,16 +261,6 @@ nav {
     transition: 0.3s;
 }
 
-.pet-card:hover {
-    transform: translateY(-10px);
-    border-color: #D2B48C;
-}
-
-.pet-card i {
-    color: #D2B48C;
-    margin-bottom: 20px;
-}
-
 /* --- FOOTER --- */
 footer {
     background: #E6D5C3;
@@ -246,9 +269,4 @@ footer {
     margin-top: 60px;
     color: #4A3B33;
     border-top: 1px solid #D2B48C;
-}
-
-footer a {
-    color: #4A3B33;
-    font-weight: bold;
 }
