@@ -164,7 +164,7 @@ nav {
 
 .hero {
     background: linear-gradient(rgba(249, 244, 239, 0.7), rgba(230, 213, 195, 0.7)), 
-                url('index.png');
+                url('../images/index.png');
     background-size: cover;
     background-position: center;
     padding: 120px 20px;

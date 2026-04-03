@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,10 +8,9 @@
     <title>Coconimal | Smart Garderie & Animalerie</title>
     <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body class="home-page">
-
     <header>
         <div class="header-top">
             <div class="logo-area">
@@ -49,6 +50,8 @@
     </header>
 
     <main>
+        {% block content %}
+        {% endblock %}
     </main>
 
     <footer>
@@ -57,7 +60,6 @@
         </div>
         <p>2026 | Projet Coconight © - Animalerie & Garderie </p>
     </footer>
-
 </body>
 </html>
 
