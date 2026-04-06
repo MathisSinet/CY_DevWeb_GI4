@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <section class="hero">
     <div class="hero-text">
         <h2>Garderie Intelligente & Connectée</h2>
         <p>Confiez vos compagnons de 1 nuit à 4 semaines dans un environnement encadré par une équipe de soigneurs et monitoré par IA.</p>
         <div class="hero-buttons">
-            <a href="garderie.html" class="btn-primary">Réserver une garde</a>
-            <a href="boutique.html" class="btn-secondary">Découvrir les objets connectés</a>
+            <a href="{% url 'garderie' %}" class="btn-primary">Réserver une garde</a>
+            <a href="{% url 'boutique' %}" class="btn-secondary">Découvrir les objets connectés</a>
         </div>
     </div>
 </section>
