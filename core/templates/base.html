@@ -26,10 +26,10 @@
             </div>
 
             <div class="user-actions">
-                <a href="login.html" class="login-btn">
+                <a href="{% url 'login' %}" class="login-btn">
                     <i class="fas fa-user-circle"></i> <span>Se connecter</span>
                 </a>
-                <a href="cart.html" class="cart-icon">
+                <a href="{% url 'cart' %}" class="cart-icon">
                     <i class="fas fa-shopping-basket"></i>
                     <span class="cart-count">0</span>
                 </a>
@@ -39,10 +39,14 @@
         <nav>
             <div class="nav-container">
                 <ul>
-                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="boutique.html"><i class="fas fa-store"></i> Boutique Smart</a></li>
-                    <li><a href="garderie.html"><i class="fas fa-calendar-alt"></i> Réserver une Garde</a></li>
-                    <li><a href="concept.html"><i class="fas fa-microchip"></i> Technologie</a></li>
+                    <li><a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index'%}active"{% endif %}>
+                        <i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="{% url 'boutique' %}" class="{% if request.resolver_match.url_name == 'boutique'%}active"{% endif %}>
+                        <i class="fas fa-store"></i> Boutique Smart</a></li>
+                    <li><a href="{% url 'garderie' %}" class="{% if request.resolver_match.url_name == 'garderie'%}active"{% endif %}>
+                        <i class="fas fa-calendar-alt"></i> Réserver une Garde</a></li>
+                    <li><a href="{% url 'concept' %}" class="{% if request.resolver_match.url_name == 'concept'%}active"{% endif %}>
+                        <i class="fas fa-microchip"></i> Technologie</a></li>
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>
