@@ -1,7 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>
-    TEST BOUTIQUE
-</h1>
+<section class="container shop-section">
+    <h2 class="section-title">Boutique Coconimal Smart</h2>
+    <div class="shop-grid">
+        
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{% static 'img/fontaine.png' %}" alt="Fontaine Connectée">
+                <span class="price-tag">89,90€</span>
+            </div>
+            <div class="product-info">
+                <h3>Fontaine Smart Flow</h3>
+                <p>Suivi de consommation et filtration active.</p>
+                <button class="btn-buy">Ajouter au panier</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{% static 'img/litiere.png' %}" alt="Litière Auto">
+                <span class="price-tag">249,00€</span>
+            </div>
+            <div class="product-info">
+                <h3>Litière Pure-Box</h3>
+                <p>Auto-nettoyage et capteur de poids IA.</p>
+                <button class="btn-buy">Ajouter au panier</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{% static 'img/terrarium.png' %}" alt="Litière Auto">
+                <span class="price-tag">199,99€</span>
+            </div>
+            <div class="product-info">
+                <h3>TerraControl Pro</h3>
+                <p>Gestion précise des cycles UV et chaleur.</p>
+                <button class="btn-buy">Ajouter au panier</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{% static 'img/climatisation.png' %}" alt="Litière Auto">
+                <span class="price-tag">159,00€</span>
+            </div>
+            <div class="product-info">
+                <h3>Clim-IA Multi-Espece</h3>
+                <p>Régulation thermique avec bornes de sécurité.</p>
+                <button class="btn-buy">Ajouter au panier</button>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
