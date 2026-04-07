@@ -1,0 +1,100 @@
+@import 'colors.css';
+
+.hero {
+    background: linear-gradient(rgba(249, 244, 239, 0.7), rgba(230, 213, 195, 0.7)), 
+                url('../images/index.png');
+    background-size: cover;
+    background-position: center;
+    padding: 120px 20px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    font-family: 'Cinzel', serif;
+    margin-bottom: 20px;
+}
+
+.hero-buttons {
+    margin-top: 30px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 15px 35px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.btn-primary { background: var(--col-dark); color: var(--col-light-3); }
+.btn-secondary { background: white; color: var(--col-dark); border: 1px solid var(--col-light-2); }
+
+
+.smart-features {
+    background-color: var(--col-dark);
+    padding: 10px;
+    color: var(--col-light-3);
+}
+
+.white { color: var(--col-light-3); }
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(210, 180, 140, 0.3);
+}
+
+.feature-item i {
+    font-size: 2.5rem;
+    color: var(--col-light-1);
+    margin-bottom: 15px;
+}
+
+.feature-item h4 {
+    font-family: 'Cinzel', serif;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+/* --- CONTENU & GRILLES --- */
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+.pet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.pet-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    border: 1px solid var(--col-light-3);
+    transition: 0.3s;
+}

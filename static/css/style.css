@@ -1,3 +1,5 @@
+@import 'colors.css';
+
 /* --- CONFIGURATION GÉNÉRALE --- */
 * {
     margin: 0;
@@ -7,15 +9,24 @@
 
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #F9F4EF;
-    color: #4A3B33;
+    background-color: var(--col-light-3);
+    color: var(--col-dark);
     line-height: 1.6;
+}
+
+.content-wrapper {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: auto;
 }
 
 /* --- HEADER : LOGO + RECHERCHE + LOGIN --- */
 header {
-    background-color: #E6D5C3; /* Beige du Logo */
-    border-bottom: 1px solid #D2B48C;
+    background-color: var(--col-light-2); /* Beige du Logo */
+    border-bottom: 1px solid var(--col-light-1);
 }
 
 .header-top {
@@ -43,7 +54,7 @@ header {
 .brand-name {
     font-family: 'Cinzel', serif;
     font-size: 1.8rem;
-    color: #4A3B33;
+    color: var(--col-dark);
 }
 
 /* Barre de Recherche */
@@ -54,10 +65,10 @@ header {
 
 .search-container form {
     display: flex;
-    background: #F9F4EF;
+    background: var(--col-light-3);
     border-radius: 25px;
     padding: 3px;
-    border: 1px solid #D2B48C;
+    border: 1px solid var(--col-light-1);
 }
 
 .search-container input {
@@ -66,13 +77,13 @@ header {
     flex: 1;
     background: transparent;
     outline: none;
-    color: #4A3B33;
+    color: var(--col-dark);
 }
 
 .search-container button {
-    background: #4A3B33;
+    background: var(--col-dark);
     border: none;
-    color: #F9F4EF;
+    color: var(--col-light-3);
     padding: 0 20px;
     border-radius: 25px;
     cursor: pointer;
@@ -80,7 +91,7 @@ header {
 }
 
 .search-container button:hover {
-    background: #D2B48C;
+    background: var(--col-light-1);
 }
 
 /* Actions Utilisateur */
@@ -92,8 +103,8 @@ header {
 
 .login-btn {
     text-decoration: none;
-    color: #4A3B33;
-    border: 1px solid #4A3B33;
+    color: var(--col-dark);
+    border: 1px solid var(--col-dark);
     padding: 8px 18px;
     border-radius: 20px;
     font-weight: 600;
@@ -101,13 +112,13 @@ header {
 }
 
 .login-btn:hover {
-    background: #4A3B33;
-    color: #F9F4EF;
+    background: var(--col-dark);
+    color: var(--col-light-3);
 }
 
 .cart-icon {
     font-size: 1.5rem;
-    color: #4A3B33;
+    color: var(--col-dark);
     text-decoration: none;
     position: relative;
 }
@@ -116,7 +127,7 @@ header {
     position: absolute;
     top: -8px;
     right: -10px;
-    background: #D2B48C;
+    background: var(--col-light-1);
     color: white;
     font-size: 0.7rem;
     padding: 2px 6px;
@@ -125,8 +136,8 @@ header {
 
 /* --- BARRE DE NAVIGATION HORIZONTALE --- */
 nav {
-    background: #F9F4EF;
-    border-bottom: 2px solid #E6D5C3;
+    background: var(--col-light-3);
+    border-bottom: 2px solid var(--col-light-2);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -145,7 +156,7 @@ nav {
     display: block;
     padding: 18px 30px;
     text-decoration: none;
-    color: #4A3B33;
+    color: var(--col-dark);
     font-weight: 600;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -154,118 +165,24 @@ nav {
 }
 
 .nav-container li a:hover {
-    background-color: #E6D5C3;
+    background-color: var(--col-light-2);
 }
 
 .nav-container li a.active {
-    background-color: #D2B48C;
+    background-color: var(--col-light-1);
     color: white;
 }
 
-.hero {
-    background: linear-gradient(rgba(249, 244, 239, 0.7), rgba(230, 213, 195, 0.7)), 
-                url('../images/index.png');
-    background-size: cover;
-    background-position: center;
-    padding: 120px 20px;
-    text-align: center;
-}
-
-.hero h2 {
-    font-size: 3rem;
-    font-family: 'Cinzel', serif;
-    margin-bottom: 20px;
-}
-
-.hero-buttons {
-    margin-top: 30px;
-}
-
-.btn-primary, .btn-secondary {
-    padding: 15px 35px;
-    text-decoration: none;
-    border-radius: 30px;
-    font-weight: bold;
-    display: inline-block;
-    margin: 10px;
-    transition: 0.3s;
-}
-
-.btn-primary { background: #4A3B33; color: #F9F4EF; }
-.btn-secondary { background: white; color: #4A3B33; border: 1px solid #E6D5C3; }
-
-
-.smart-features {
-    background-color: #4A3B33;
-    padding: 10px;
-    color: #F9F4EF;
-}
-
-.white { color: #F9F4EF; }
-
-.feature-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 30px;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.feature-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px solid rgba(210, 180, 140, 0.3);
-}
-
-.feature-item i {
-    font-size: 2.5rem;
-    color: #D2B48C;
-    margin-bottom: 15px;
-}
-
-.feature-item h4 {
-    font-family: 'Cinzel', serif;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
-
-/* --- CONTENU & GRILLES --- */
-.container {
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 0 20px;
-}
-
-.section-title {
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    margin-bottom: 40px;
-    font-size: 2rem;
-}
-
-.pet-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.pet-card {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-    border: 1px solid #F9F4EF;
-    transition: 0.3s;
+main {
+    width: 100%;
+    flex-grow: 1;
 }
 
 /* --- FOOTER --- */
 footer {
-    background: #E6D5C3;
+    background: var(--col-light-2);
     padding: 40px 20px;
     text-align: center;
-    color: #4A3B33;
-    border-top: 1px solid #D2B48C;
+    color: var(--col-dark);
+    border-top: 1px solid var(--col-light-1);
 }
