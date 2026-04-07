@@ -1,7 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/login.css" %}">
+{% endblock %}
 
 {% block content %}
-<h1>
-    TEST CONNECTION
-</h1>
+<section class="login">
+    <fieldset>
+        <legend>Connexion</legend>
+        <form>
+            <label>
+                Adresse mail :
+                <input type="email" name="email">
+            </label>
+            <label>
+                Mot de passe :
+                <input type="password" name="email">
+            </label>
+            <input type="submit" value="Se connecter">
+            <div class="error">
+            </div>
+        </form>
+    </fieldset>
+    <div class="no-account-signup">
+        Pas encore de compte ? <a href="{% url 'signup' %}">S'inscrire</a>
+    </div>
+</section>
 {% endblock %}

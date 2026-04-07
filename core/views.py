@@ -10,6 +10,9 @@ def index(request):
 def login(request):
     return render(request,"login.html")
 
+def signup(request):
+    return render(request,"signup.html")
+
 def concept(request):
     return render(request,"concept.html")
 

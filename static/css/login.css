@@ -1,0 +1,123 @@
+@import 'colors.css';
+
+.login {
+    min-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    background: linear-gradient(180deg, rgba(249,244,239,0.95) 0%, rgba(230,213,195,0.95) 100%);
+}
+
+.login fieldset {
+    width: min(500px, 100%);
+    background: var(--col-light-4);
+    border: 1px solid var(--col-light-1);
+    border-radius: 28px;
+    padding: 42px 36px;
+    box-shadow: 0 24px 70px rgba(74, 59, 51, 0.12);
+}
+
+.login legend {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--col-dark);
+    margin-bottom: 24px;
+    padding: 0px 12px;
+    background-color: var(--col-light-2);
+
+    align-self: center;
+    text-align: center;
+}
+
+.login form {
+    display: grid;
+    gap: 20px;
+}
+
+.login label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--col-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.login input[type="email"],
+.login input[type="password"] {
+    width: 100%;
+    border: 1px solid var(--col-light-1);
+    border-radius: 18px;
+    padding: 14px 18px;
+    background: var(--col-light-3);
+    color: var(--col-dark);
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+    border-color: var(--col-dark);
+    box-shadow: 0 0 0 5px rgba(74, 59, 51, 0.12);
+}
+
+.login input[type="submit"] {
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+    padding: 14px 18px;
+    background: var(--col-dark);
+    color: var(--col-light-4);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.login input[type="submit"]:hover {
+    background: var(--col-light-1);
+    color: var(--col-dark);
+    transform: translateY(-1px);
+}
+
+.login .error {
+    min-height: 20px;
+    color: #bf1e2e;
+    font-size: 0.95rem;
+    margin-top: -6px;
+}
+
+.no-account-signup {
+    margin-top: 24px;
+    text-align: center;
+    color: var(--col-dark);
+    font-size: 0.95rem;
+}
+
+.no-account-signup a {
+    color: var(--col-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.no-account-signup a:hover {
+    color: var(--col-light-1);
+}
+
+@media (max-width: 720px) {
+    .login {
+        padding: 40px 16px;
+        min-height: auto;
+    }
+
+    .login fieldset {
+        padding: 30px 24px;
+    }
+
+    .login legend {
+        font-size: 1.6rem;
+    }
+}
