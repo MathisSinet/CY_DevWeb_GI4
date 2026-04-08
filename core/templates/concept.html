@@ -1,7 +1,49 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/concept.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>
-    TEST CONCEPT
-</h1>
+<section class="container concept-container">
+    <div class="concept-card-single">
+        <div class="concept-hero-image">
+            <img src="{% static objet.image %}" alt="{{ objet.nom }}">
+            <span class="status-badge-float">{{ objet.etat }}</span>
+        </div>
+
+        <div class="concept-body">
+            <div class="concept-header-mini">
+                <h1>{{ objet.nom }}</h1>
+                <p class="brand-subtitle">Coconimal Smart Device • ID: {{ objet.id }}</p>
+            </div>
+
+            <div class="specs-wrapper">
+                <div class="spec-card">
+                    <h4>📡 Connectivité</h4>
+                    <p>Signal : {{ objet.signal }}</p>
+                </div>
+                <div class="spec-card">
+                    <h4>⚡ Énergie</h4>
+                    <p>{{ objet.conso }}</p>
+                    <p>Alimentation : {{ objet.batterie }}</p>
+                </div>
+                <div class="spec-card">
+                    <h4>🔍 Capteurs</h4>
+                    <p>{{ objet.capteurs }}</p>
+                </div>
+            </div>
+
+            <div class="description-box">
+                <h3>📝 Description du service</h3>
+                <p>{{ objet.description }}</p>
+            </div>
+
+            <div class="concept-footer">
+                <a href="{% url 'boutique' %}" class="btn-back-mignon">⬅ Retour à la boutique</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
