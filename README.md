@@ -5,4 +5,5 @@ Pour installer l'environnement de développement :
 - `pip install django`
 
 Pour lancer le serveur en mode développement :
+- `python manage.py migrate` (après chaque pull)
 - `python manage.py runserver`
