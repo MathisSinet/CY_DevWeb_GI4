@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-class RegisterableEmails(models.Model):
+class RegisterableEmail(models.Model):
     email = models.EmailField(unique=True, blank=True)
 
 class User(AbstractUser):

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django import forms
-from .models import RegisterableEmails
+from .models import RegisterableEmail
 import re
 
 User = get_user_model()
@@ -26,7 +26,7 @@ class SignupForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        if not RegisterableEmails.objects.filter(email=email).exists():
+        if not RegisterableEmail.objects.filter(email=email).exists():
             raise forms.ValidationError("L'adresse email n'est pas valide.")
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Cette adresse email est déjà utilisée.")
