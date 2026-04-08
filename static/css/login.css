@@ -45,6 +45,7 @@
     font-size: 0.95rem;
 }
 
+.login input[type="text"],
 .login input[type="email"],
 .login input[type="password"] {
     width: 100%;
@@ -58,6 +59,7 @@
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+.login input[type="text"]:focus,
 .login input[type="email"]:focus,
 .login input[type="password"]:focus {
     border-color: var(--col-dark);
@@ -88,6 +90,12 @@
     color: #bf1e2e;
     font-size: 0.95rem;
     margin-top: -6px;
+}
+
+.login .field-error {
+    color: #bf1e2e;
+    font-size: 0.9rem;
+    margin-top: 4px;
 }
 
 .no-account-signup {
