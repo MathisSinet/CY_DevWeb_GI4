@@ -19,7 +19,7 @@
             </div>
 
             <div class="search-container">
-                <form action="search.html" method="GET">
+                <form action="{% url 'search' %}" method="GET">
                     <input type="text" placeholder="Rechercher une litière, lampe UV, garde..." name="q">
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>

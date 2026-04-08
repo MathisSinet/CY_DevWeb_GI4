@@ -24,3 +24,11 @@ def cart(request):
 
 def search(request):
     return render(request,"search.html")
+
+
+
+
+
+
+
+

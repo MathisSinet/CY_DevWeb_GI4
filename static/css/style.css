@@ -269,3 +269,163 @@ footer {
     color: #4A3B33;
     border-top: 1px solid #D2B48C;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- MISE EN PAGE DE LA RECHERCHE  --- */
+
+.intro-text {
+    text-align: center;
+    margin-top: -30px;
+    margin-bottom: 40px;
+    color: #6D5B52;
+    font-style: italic;
+}
+
+.search-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr; /* Sidebar à gauche, résultats à droite */
+    gap: 40px;
+    align-items: start;
+}
+
+/* --- SIDEBAR DE FILTRES --- */
+
+.filters-sidebar {
+    background-color: #E6D5C3;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #D2B48C;
+    position: sticky;
+    top: 100px; 
+}
+
+.filters-sidebar h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #D2B48C;
+    padding-bottom: 10px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #D2B48C;
+    background-color: #F9F4EF;
+    color: #4A3B33;
+    font-family: inherit;
+    outline: none;
+}
+
+.filters-sidebar .btn-primary {
+    width: 100%;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+    border: none;
+}
+
+/* --- RÉSULTATS LA RECHERCHE--- */
+
+.results-count {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #D2B48C;
+}
+
+/* Adaptation de la pet-card pour l'IoT */
+.pet-card i {
+    color: #D2B48C;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.iot-attributes {
+    background: #F9F4EF;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.iot-attributes p {
+    margin-bottom: 5px;
+}
+
+.iot-attributes i {
+    display: inline;
+    margin-right: 8px;
+    font-size: 0.9rem;
+    color: #4A3B33;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #F9F4EF;
+}
+
+.price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #4A3B33;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px;
+    background: #E6D5C3;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* --- RESPONSIVE  --- */
+
+@media (max-width: 900px) {
+    .search-layout {
+        grid-template-columns: 1fr; 
+    }
+    
+    .filters-sidebar {
+        position: static;
+    }
+}

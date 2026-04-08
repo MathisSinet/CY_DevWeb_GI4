@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="container">
+    <h2 class="section-title">Recherche</h2>
+    <p class="intro-text">Description............</p>
+
+    <div class="search-layout">
+        <aside class="filters-sidebar">
+            <form method="GET" action="{% url 'search' %}">
+                <h3><i class="fas fa-filter"></i> Filtres </h3>
+                <div class="filter-group">
+                    <label for="animal"> Animal concerné</label>
+                    <select name="animal" id="animal">
+                        <option value="">Tous les animaux</option>
+                        <option value="chien">Chien</option>
+                        <option value="chat">Chat</option>
+                        <option value="reptile">Reptile</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="statut">Statut de l'objet</label>
+                    <select name="statut" id="statut">
+                        <option value="">Tous les statuts</option>
+                        <option value="disponible">disponible / Actif</option>
+                        <option value="indisponible">indisponible / Maintenance</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="type">Catégorie</label>
+                    <select name="type" id="type">
+                        <option value="">Toute les catégorie</option>
+                        <option value="iot">Objets IoT</option>
+                        <option value="produit">Produits Boutique</option>
+                        <option value="service">iServices Garderie</option>                   
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-primary">Appliquer les filtres</button>
+            </form>
+        </aside>
+
+        <div class="pet-grid">
+            <article class="pet-card">
+            <i class="fas fa-cat fa-3x"></i>
+
+            <h3>Litière Connectée (Test)</h3>
+            <p>Recherche test.</p>
+            <div class="iot-attributes">
+                <p><i class="fas fa-battery-half"></i> Batterie : 80%</p>
+                <p><i class="fas fa-wifi"></i> État : Connecté</p>
+            </div>
+            <div class="card-footer">
+                <span class="price">150 €</span>
+                <a href="#" class="btn-secondary">Détails</a>
+            </div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}
