@@ -11,18 +11,67 @@
         <legend>Inscription</legend>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="S'inscrire">
-            <div class="error">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div>
-                            {{ message }}
-                        </div>
+            {% if form.non_field_errors %}
+                <div class="error">
+                    {% for error in form.non_field_errors %}
+                        <div>{{ error }}</div>
                     {% endfor %}
+                </div>
+            {% endif %}
+            <label>
+                Nom d'utilisateur :
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="field-error">{{ form.username.errors }}</div>
                 {% endif %}
-            </div>
+            </label>
+            <label>
+                Prénom :
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <div class="field-error">{{ form.first_name.errors }}</div>
+                {% endif %}
+            </label>
+            <label>
+                Nom de famille :
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <div class="field-error">{{ form.last_name.errors }}</div>
+                {% endif %}
+            </label>
+            <label>
+                Adresse mail :
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="field-error">{{ form.email.errors }}</div>
+                {% endif %}
+            </label>
+            <label>
+                Numéro de téléphone :
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <div class="field-error">{{ form.phone_number.errors }}</div>
+                {% endif %}
+            </label>
+            <label>
+                Mot de passe :
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="field-error">{{ form.password1.errors }}</div>
+                {% endif %}
+            </label>
+            <label>
+                Confirmation du mot de passe :
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="field-error">{{ form.password2.errors }}</div>
+                {% endif %}
+            </label>
+            <input type="submit" value="S'inscrire">
         </form>
     </fieldset>
+    <div class="no-account-signup">
+        Déjà un compte ? <a href="{% url 'login' %}">Se connecter</a>
+    </div>
 </section>
 {% endblock %}
