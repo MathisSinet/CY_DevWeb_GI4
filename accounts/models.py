@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+class RegisterableEmails(models.Model):
+    email = models.EmailField(unique=True, blank=True)
+
 class User(AbstractUser):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
