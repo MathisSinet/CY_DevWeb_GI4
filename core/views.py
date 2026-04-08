@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def test(request):
@@ -22,6 +23,7 @@ def boutique(request):
 def garderie(request):
     return render(request,"garderie.html")
 
+@login_required
 def cart(request):
     return render(request,"cart.html")
 

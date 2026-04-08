@@ -9,17 +9,25 @@
 <section class="login">
     <fieldset>
         <legend>Connexion</legend>
-        <form>
+        <form method="post">
+            {% csrf_token %}
             <label>
                 Adresse mail :
                 <input type="email" name="email">
             </label>
             <label>
                 Mot de passe :
-                <input type="password" name="email">
+                <input type="password" name="password">
             </label>
             <input type="submit" value="Se connecter">
             <div class="error">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </form>
     </fieldset>

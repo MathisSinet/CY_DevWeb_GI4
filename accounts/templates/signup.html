@@ -9,17 +9,18 @@
 <section class="login signup">
     <fieldset>
         <legend>Inscription</legend>
-        <form>
-            <label>
-                Adresse mail :
-                <input type="email" name="email">
-            </label>
-            <label>
-                Mot de passe :
-                <input type="password" name="email">
-            </label>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
             <input type="submit" value="S'inscrire">
             <div class="error">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </form>
     </fieldset>
