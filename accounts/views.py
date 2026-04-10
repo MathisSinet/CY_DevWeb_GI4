@@ -26,7 +26,7 @@ def login_view(request: HttpRequest):
         user = authenticate(request, email=email, password=password)
         if user:
             login(request, user)
-            return redirect("home")
+            return redirect("index")
         else:
             messages.error(request, "Identifiants invalides")
 

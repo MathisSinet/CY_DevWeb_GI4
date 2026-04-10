@@ -116,6 +116,29 @@ header {
     color: var(--col-light-3);
 }
 
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--col-dark);
+    border: 1px solid var(--col-dark);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.logout-link {
+    text-decoration: none;
+    color: var(--col-dark);
+    transition: 0.3s;
+}
+
+.logout-link:hover {
+    color: var(--col-light-1);
+}
+
 .cart-icon {
     font-size: 1.5rem;
     color: var(--col-dark);
