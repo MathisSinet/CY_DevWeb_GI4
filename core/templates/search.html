@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <section class="container">
@@ -42,22 +48,43 @@
             </form>
         </aside>
 
-        <div class="pet-grid">
-            <article class="pet-card">
-            <i class="fas fa-cat fa-3x"></i>
 
-            <h3>Litière Connectée (Test)</h3>
-            <p>Recherche test.</p>
-            <div class="iot-attributes">
-                <p><i class="fas fa-battery-half"></i> Batterie : 80%</p>
-                <p><i class="fas fa-wifi"></i> État : Connecté</p>
-            </div>
-            <div class="card-footer">
-                <span class="price">150 €</span>
-                <a href="#" class="btn-secondary">Détails</a>
-            </div>
+        <div class="pet-grid">
+            {% for objet in objets %}
+            <article class="pet-card">
+                {% if objet.animal_concerne == 'chat' %}
+                    <i class="fas fa-cat fa-3x"></i>
+                {% elif objet.animal_concerne == 'chien' %}
+                    <i class="fas fa-dog fa-3x"></i>
+                {% else %}
+                    <i class="fas fa-dragon fa-3x"></i>
+                {% endif %}
+
+                <h3>{{ objet.nom }}</h3>
+                <p>{{ objet.description }}</p>
+
+                <div class="iot-attributes">
+                    <p><i class="fas fa-tag"></i> Catégorie : {{ objet.categorie }}</p>
+                    <p><i class="fas fa-battery-half"></i> Batterie : {{ objet.batterie }}%</p>
+                    <p><i class="fas fa-wifi"></i> État : 
+                        {% if objet.est_actif %} <span style="color: green;">Disponible</span> 
+                        {% else %} <span style="color: red;">Maintenance</span> {% endif %}
+                    </p>
+                </div>
+
+                <div class="card-footer">
+                    <span class="price">{{ objet.prix }} €</span>
+                    <a href="#" class="btn-secondary">Détails</a>
+                </div>
             </article>
+            {% empty %}
+            <div class="no-results">
+                <p>Aucun résultat ne correspond à votre recherche.</p>
+            </div>
+            {% endfor %}
         </div>
+
+
     </div>
 </section>
 {% endblock %}

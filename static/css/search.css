@@ -1,0 +1,104 @@
+@import url('colors.css');
+
+/* ── Layout général ── */
+.container {
+    max-width: 1400px; /* On élargit pour donner de l'espace */
+    margin: 0 auto;
+    padding: 2rem 1rem; /* On réduit le padding latéral pour coller au bord */
+}
+
+/* Titres centrés */
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: var(--col-dark);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.intro-text {
+    text-align: center;
+    color: var(--col-light-1);
+    font-style: italic;
+    margin-bottom: 3rem;
+}
+
+/* ── Structure de recherche ── */
+.search-layout {
+    display: grid;
+    /* On réduit la sidebar pour la pousser à gauche et on laisse 1fr pour le reste */
+    grid-template-columns: 280px 1fr; 
+    gap: 20px;
+    align-items: start;
+}
+
+/* ── Sidebar de Filtres ── */
+.filters-sidebar {
+    background: var(--col-light-3);
+    border: 1px solid var(--col-light-2);
+    border-radius: 18px;
+    padding: 1.5rem;
+    position: sticky;
+    top: 100px;
+    /* On s'assure qu'elle ne s'éloigne pas du bord gauche */
+    margin-left: 0; 
+}
+
+.filters-sidebar h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--col-dark);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Style du bouton qui n'était pas bon sur ta photo */
+.filters-sidebar .btn-primary {
+    width: 100%;
+    background: var(--col-dark);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.filters-sidebar .btn-primary:hover {
+    background: var(--col-light-1);
+}
+
+/* ── Grille de produits CENTRÉE ── */
+.pet-grid {
+    display: grid;
+    /* On définit une taille de carte fixe pour éviter qu'elles ne s'étirent */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 350px)); 
+    gap: 2rem;
+    /* C'est cette ligne qui centre tes objets dans l'espace de droite */
+    justify-content: center; 
+}
+
+.pet-card {
+    background: white;
+    border: 1px solid var(--col-light-2);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .search-layout {
+        grid-template-columns: 1fr;
+    }
+}
