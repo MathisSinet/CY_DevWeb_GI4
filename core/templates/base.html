@@ -29,9 +29,17 @@
             </div>
 
             <div class="user-actions">
-                <a href="{% url 'login' %}" class="login-btn">
-                    <i class="fas fa-user-circle"></i> <span>Se connecter</span>
-                </a>
+                {% if user.is_authenticated %}
+                    <div class="user-menu">
+                        <i class="fas fa-user-circle"></i>
+                        <span>{{ user.username }}</span>
+                        <a href="{% url 'logout' %}" class="logout-link">| Déconnexion</a>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-btn">
+                        <i class="fas fa-user-circle"></i> <span>Se connecter</span>
+                    </a>
+                {% endif %}
                 <a href="{% url 'cart' %}" class="cart-icon">
                     <i class="fas fa-shopping-basket"></i>
                     <span class="cart-count">0</span>
