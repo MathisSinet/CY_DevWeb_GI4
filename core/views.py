@@ -2,9 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import ObjetConnecte
 
-
-from .models import ObjetConnecte
-
 # Create your views here.
 def test(request):
     return render(request, "test.html")
