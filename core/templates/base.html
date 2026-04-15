@@ -32,7 +32,9 @@
                 {% if user.is_authenticated %}
                     <div class="user-menu">
                         <i class="fas fa-user-circle"></i>
-                        <span>{{ user.username }}</span>
+                        <a href="{% url 'profile' %}" class="logout-link">
+                            <span>{{ user.username }}</span>
+                        </a>
                         <a href="{% url 'logout' %}" class="logout-link">| Déconnexion</a>
                     </div>
                 {% else %}
