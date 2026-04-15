@@ -6,10 +6,9 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="container">
-    <h2 class="section-title">Recherche</h2>
-    <p class="intro-text">Description............</p>
+    <h2 class="section-title">Catalogue Technologie & Services</h2>
+    <p class="intro-text">Explorez nos solutions connectées pour le bien-être de vos compagnons.</p>
 
     <div class="search-layout">
         <aside class="filters-sidebar">
@@ -22,6 +21,8 @@
                         <option value="chien">Chien</option>
                         <option value="chat">Chat</option>
                         <option value="reptile">Reptile</option>
+                        <option value="chien_chat">Chien & Chat</option>
+                        <option value="tous">Multi-espèces (Tous)</option>
                     </select>
                 </div>
 
@@ -29,18 +30,17 @@
                     <label for="statut">Statut de l'objet</label>
                     <select name="statut" id="statut">
                         <option value="">Tous les statuts</option>
-                        <option value="disponible">disponible / Actif</option>
-                        <option value="indisponible">indisponible / Maintenance</option>
+                        <option value="disponible">Disponible / Actif</option>
+                        <option value="indisponible">Maintenance</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
                     <label for="type">Catégorie</label>
                     <select name="type" id="type">
-                        <option value="">Toute les catégorie</option>
+                        <option value="">Toutes les catégories</option>
                         <option value="iot">Objets IoT</option>
-                        <option value="produit">Produits Boutique</option>
-                        <option value="service">iServices Garderie</option>                   
+                        <option value="service">Services Garderie</option>                   
                     </select>
                 </div>
 
@@ -48,43 +48,60 @@
             </form>
         </aside>
 
-
         <div class="pet-grid">
             {% for objet in objets %}
             <article class="pet-card">
-                {% if objet.animal_concerne == 'chat' %}
-                    <i class="fas fa-cat fa-3x"></i>
-                {% elif objet.animal_concerne == 'chien' %}
-                    <i class="fas fa-dog fa-3x"></i>
-                {% else %}
-                    <i class="fas fa-dragon fa-3x"></i>
-                {% endif %}
-
-                <h3>{{ objet.nom }}</h3>
-                <p>{{ objet.description }}</p>
-
-                <div class="iot-attributes">
-                    <p><i class="fas fa-tag"></i> Catégorie : {{ objet.categorie }}</p>
-                    <p><i class="fas fa-battery-half"></i> Batterie : {{ objet.batterie }}%</p>
-                    <p><i class="fas fa-wifi"></i> État : 
-                        {% if objet.est_actif %} <span style="color: green;">Disponible</span> 
-                        {% else %} <span style="color: red;">Maintenance</span> {% endif %}
-                    </p>
+                <div class="card-image">
+                    {% if objet.image %}
+                        <img src="{{ objet.image.url }}" alt="{{ objet.nom }}" style="width:100%; height:150px; object-fit:cover; border-radius:10px 10px 0 0;">
+                    {% endif %}
                 </div>
 
-                <div class="card-footer">
-                    <span class="price">{{ objet.prix }} €</span>
-                    <a href="#" class="btn-secondary">Détails</a>
+                <div class="card-content" style="padding: 15px;">
+                    <div class="animal-icon" style="margin-bottom: 10px; color: #D2B48C;">
+                        {% if objet.animal_concerne == 'chat' %}
+                            <i class="fas fa-cat fa-2x"></i>
+                        {% elif objet.animal_concerne == 'chien' %}
+                            <i class="fas fa-dog fa-2x"></i>
+                        {% elif objet.animal_concerne == 'reptile' %}
+                            <i class="fas fa-dragon fa-2x"></i>
+                        {% elif objet.animal_concerne == 'chien_chat' %}
+                            <i class="fas fa-dog" style="font-size: 1.2rem;"></i> 
+                            <i class="fas fa-cat" style="font-size: 1.2rem; margin-left: 5px;"></i>
+                        {% elif objet.animal_concerne == 'tous' %}
+                            <i class="fas fa-dog" style="font-size: 1rem;"></i> 
+                            <i class="fas fa-cat" style="font-size: 1rem; margin-left: 3px;"></i> 
+                            <i class="fas fa-dragon" style="font-size: 1rem; margin-left: 3px;"></i>
+                        {% else %}
+                            <i class="fas fa-microchip fa-2x"></i>
+                        {% endif %}
+                    </div>
+
+                    <h3>{{ objet.nom }}</h3>
+                    <p>{{ objet.description|truncatewords:10 }}</p>
+
+                    <div class="iot-attributes" style="font-size: 0.85rem; margin: 10px 0;">
+                        <p><i class="fas fa-battery-half"></i> Batterie : {{ objet.batterie }}%</p>
+                        <p><i class="fas fa-wifi"></i> État : 
+                            {% if objet.est_actif %} <span style="color: green;">Actif</span> 
+                            {% else %} <span style="color: red;">Maintenance</span> {% endif %}
+                        </p>
+                    </div>
+
+                    <div class="card-footer" style="margin-top: 15px; text-align: center;">
+                        <a href="{% url 'concept' objet.id_unique %}" class="btn-secondary" style="background: #D2B48C; color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; display: block; transition: 0.3s;">
+                            Consulter la fiche technique
+                        </a>
+                    </div>
                 </div>
             </article>
             {% empty %}
-            <div class="no-results">
-                <p>Aucun résultat ne correspond à votre recherche.</p>
+            <div class="no-results" style="text-align: center; width: 100%; padding: 50px;">
+                <p>Aucun objet trouvé pour cette recherche.</p>
             </div>
             {% endfor %}
         </div>
-
-
     </div>
 </section>
+
 {% endblock %}

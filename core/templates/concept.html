@@ -8,42 +8,71 @@
 {% block content %}
 <section class="container concept-container">
     <div class="concept-card-single">
+        
         <div class="concept-hero-image">
-            <img src="{% static objet.image %}" alt="{{ objet.nom }}">
+            {% if objet.image %}
+                <img src="{{ objet.image.url }}" alt="{{ objet.nom }}">
+            {% else %}
+                <img src="{% static 'images/default.png' %}" alt="Image par défaut">
+            {% endif %}
             <span class="status-badge-float">{{ objet.etat }}</span>
         </div>
 
         <div class="concept-body">
             <div class="concept-header-mini">
                 <h1>{{ objet.nom }}</h1>
-                <p class="brand-subtitle">Coconimal Smart Device • ID: {{ objet.id }}</p>
+                <p class="brand-subtitle">Coconimal Smart Device • ID: {{ objet.id_unique }}</p>
             </div>
 
             <div class="specs-wrapper">
+                
                 <div class="spec-card">
                     <h4>📡 Connectivité</h4>
-                    <p>Signal : {{ objet.signal }}</p>
+                    <p>Signal : <strong>{{ objet.signal_wifi }}</strong></p>
                 </div>
+                
                 <div class="spec-card">
                     <h4>⚡ Énergie</h4>
-                    <p>{{ objet.conso }}</p>
-                    <p>Alimentation : {{ objet.batterie }}</p>
+                    <p>Batterie : <strong>{{ objet.batterie }}%</strong></p>
                 </div>
-                <div class="spec-card">
-                    <h4>🔍 Capteurs</h4>
-                    <p>{{ objet.capteurs }}</p>
+
+                {% if user.is_authenticated %}
+                <div class="spec-card admin-highlight">
+                    <h4>🛠 Contrôle Avancé</h4>
+                    
+                    <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST" style="margin-bottom: 12px;">
+                        {% csrf_token %}
+                        <button type="submit" name="recharger" class="btn-action-small">🔌 Simuler Recharge</button>
+                    </form>
+
+                    <p>Mode : {{ objet.mode }}</p>
+                    <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST">
+                        {% csrf_token %}
+                        <select name="mode" onchange="this.form.submit()" class="select-mignon">
+                            <option value="Automatique" {% if objet.mode == "Automatique" %}selected{% endif %}>Auto</option>
+                            <option value="Manuel" {% if objet.mode == "Manuel" %}selected{% endif %}>Manuel</option>
+                            <option value="Eco" {% if objet.mode == "Eco" %}selected{% endif %}>Éco</option>
+                        </select>
+                    </form>
                 </div>
+                {% endif %}
             </div>
 
             <div class="description-box">
-                <h3>📝 Description du service</h3>
+                <h3>📝 Descriptif Technique</h3>
                 <p>{{ objet.description }}</p>
+                {% if user.is_authenticated %}
+                <p style="margin-top:10px; font-size: 0.8rem; color: #888;">
+                    Dernière interaction : {{ objet.derniere_interaction|date:"H:i" }} | Capteurs : {{ objet.capteurs_liste }}
+                </p>
+                {% endif %}
             </div>
 
             <div class="concept-footer">
-                <a href="{% url 'boutique' %}" class="btn-back-mignon">⬅ Retour à la boutique</a>
+                <a href="{% url 'search' %}" class="btn-back-mignon">⬅ Retour au catalogue</a>
             </div>
         </div>
     </div>
 </section>
+
 {% endblock %}

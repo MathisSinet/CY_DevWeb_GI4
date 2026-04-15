@@ -1,6 +1,5 @@
 @import 'colors.css';
 
-/* On centre le bloc au milieu de l'écran */
 .concept-container {
     display: flex;
     justify-content: center;
@@ -9,7 +8,6 @@
     min-height: 80vh;
 }
 
-/* Le bloc blanc bien propre */
 .concept-card-single {
     max-width: 650px;
     width: 100%;
@@ -21,7 +19,6 @@
     text-align: center;
 }
 
-/* L'image en haut */
 .concept-hero-image {
     position: relative;
     height: 300px;
@@ -61,9 +58,9 @@
     color: #D2B48C;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 
-/* Les petites boites d'infos */
 .specs-wrapper {
     display: flex;
     flex-direction: column;
@@ -84,6 +81,41 @@
     margin-bottom: 5px;
 }
 
+.admin-highlight {
+    border: 2px dashed #D2B48C !important;
+    background: #fdfaf7 !important;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.btn-action-small { 
+    background: #4A3B33; 
+    color: white; 
+    border: none; 
+    padding: 10px 15px; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    font-size: 0.8rem; 
+    width: 100%;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-action-small:hover {
+    background: #D2B48C;
+}
+
+.select-mignon { 
+    width: 100%; 
+    padding: 8px; 
+    border-radius: 10px; 
+    border: 1px solid #D2B48C; 
+    background: white;
+    margin-bottom: 10px;
+}
+
 .btn-back-mignon {
     display: inline-block;
     background: #D2B48C;
@@ -93,6 +125,7 @@
     text-decoration: none;
     font-weight: bold;
     transition: 0.3s;
+    margin-top: 20px;
 }
 
 .btn-back-mignon:hover {

@@ -1,13 +1,11 @@
 @import url('colors.css');
 
-/* ── Layout général ── */
 .container {
-    max-width: 1400px; /* On élargit pour donner de l'espace */
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 1rem; /* On réduit le padding latéral pour coller au bord */
+    padding: 2rem 1rem;
 }
 
-/* Titres centrés */
 .section-title {
     font-family: 'Cinzel', serif;
     font-size: 2.2rem;
@@ -23,16 +21,13 @@
     margin-bottom: 3rem;
 }
 
-/* ── Structure de recherche ── */
 .search-layout {
     display: grid;
-    /* On réduit la sidebar pour la pousser à gauche et on laisse 1fr pour le reste */
     grid-template-columns: 280px 1fr; 
     gap: 20px;
     align-items: start;
 }
 
-/* ── Sidebar de Filtres ── */
 .filters-sidebar {
     background: var(--col-light-3);
     border: 1px solid var(--col-light-2);
@@ -40,7 +35,6 @@
     padding: 1.5rem;
     position: sticky;
     top: 100px;
-    /* On s'assure qu'elle ne s'éloigne pas du bord gauche */
     margin-left: 0; 
 }
 
@@ -54,7 +48,6 @@
     gap: 10px;
 }
 
-/* Style du bouton qui n'était pas bon sur ta photo */
 .filters-sidebar .btn-primary {
     width: 100%;
     background: var(--col-dark);
@@ -64,21 +57,19 @@
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
     margin-top: 10px;
 }
 
 .filters-sidebar .btn-primary:hover {
     background: var(--col-light-1);
+    transform: translateY(-2px);
 }
 
-/* ── Grille de produits CENTRÉE ── */
 .pet-grid {
     display: grid;
-    /* On définit une taille de carte fixe pour éviter qu'elles ne s'étirent */
     grid-template-columns: repeat(auto-fit, minmax(300px, 350px)); 
     gap: 2rem;
-    /* C'est cette ligne qui centre tes objets dans l'espace de droite */
     justify-content: center; 
 }
 
@@ -88,12 +79,23 @@
     border-radius: 20px;
     padding: 2rem;
     text-align: center;
-    transition: 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pet-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--col-light-1);
+}
+
+.btn-secondary {
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #4A3B33 !important;
+    color: white !important;
+    transform: translateY(-2px);
 }
 
 /* Responsive */

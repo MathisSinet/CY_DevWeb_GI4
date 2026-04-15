@@ -1,15 +1,31 @@
 from django.db import models
 
-# Create your models here.
-
 class ObjetConnecte(models.Model):
+    # --- Infos de base ---
     nom = models.CharField(max_length=100)
+    id_unique = models.CharField(max_length=50, unique=True, default="ID-TEMP") # Obligatoire dans la consigne
     description = models.TextField(blank=True)
     categorie = models.CharField(max_length=50) # iot, produit, service
     animal_concerne = models.CharField(max_length=50, blank=True) 
-    prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    batterie = models.IntegerField(default=100)
+    image = models.ImageField(upload_to='objets/', blank=True, null=True) # Pour pas avoir d'image cassée
+    
+    # --- 1. Attributs Énergie (Consigne) ---
+    batterie = models.IntegerField(default=100) # En %
+    alimentation = models.CharField(max_length=50, default="Secteur") # Batterie ou Secteur
+    conso_energie = models.CharField(max_length=50, default="5W/h")
+
+    # --- 2. Attributs Connectivité (Consigne) ---
+    signal_wifi = models.CharField(max_length=50, default="Fort") # Fort, Moyen, Faible
+    adresse_ip = models.GenericIPAddressField(null=True, blank=True)
+
+    # --- 3. Attributs Capteurs & Usage (Consigne) ---
+    capteurs_liste = models.CharField(max_length=200, default="Température, Humidité")
+    valeur_actuelle = models.CharField(max_length=50, blank=True) # Ex: "21°C" ou "1.2L"
+    derniere_interaction = models.DateTimeField(auto_now=True) # Se met à jour seul
+    
+    # --- État du système ---
     est_actif = models.BooleanField(default=True)
+    mode = models.CharField(max_length=50, default="Automatique") # Automatique, Manuel, Eco
 
     def __str__(self):
         return self.nom
