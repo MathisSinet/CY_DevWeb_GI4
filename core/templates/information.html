@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'css/information.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="section-title">Actualités & Événements</h1>
+    <p class="intro-text">Découvrez les moments forts et les festivités de Coconimal.</p>
+
+    <div class="pet-grid">
+        {% for actu in actualites %}
+        <article class="news-card">
+            <div class="news-img-container">
+                <img src="/media/{{ actu.image }}" alt="{{ actu.titre }}">
+            </div>
+            <div class="news-content">
+                <span class="news-date">{{ actu.date }}</span>
+                <h3 class="news-title">{{ actu.titre }}</h3>
+                <p class="news-desc">{{ actu.desc }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

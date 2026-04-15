@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coconimal | Smart Garderie & Animalerie</title>
+    <title>Coconimal | Smart Pensionnat Détente</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -48,8 +48,8 @@
                 <ul>
                     <li><a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index'%}active"{% endif %}>
                         <i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="{% url 'garderie' %}" class="{% if request.resolver_match.url_name == 'garderie'%}active"{% endif %}>
-                        <i class="fas fa-calendar-alt"></i> Réserver une Garde</a></li>
+                    <li><a href="{% url 'information' %}" class="{% if request.resolver_match.url_name == 'information' %}active{% endif %}">
+                        <i class="fas fa-newspaper"></i> Informations </a></li>
                     <li><a href="{% url 'search' %}" class="{% if request.resolver_match.url_name == 'search' %}active{% endif %}">
                         <i class="fas fa-microchip"></i> Technologie </a></li>
                 </ul>

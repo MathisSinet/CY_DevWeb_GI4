@@ -53,8 +53,6 @@ def modifier_objet(request, id_unique):
         
     return redirect('concept', id_unique=id_unique)
 
-def garderie(request):
-    return render(request,"garderie.html")
 
 @login_required
 def cart(request):
@@ -87,8 +85,43 @@ def search(request):
 
     return render(request, "search.html", {'objets': objets})
 
-
-
-
-
-
+def information(request):
+    actualites = [
+        {
+            "titre": "Anniversaire Coconimal", 
+            "date": "15 Avril 2026", 
+            "image": "actus/anniversaire.png", 
+            "desc": "AUJOURD'HUI ! Déjà un an que notre pensionnat détente accueille vos compagnons avec amour et technologie !"
+        },
+        {
+            "titre": "Foire Internationale des Animaux", 
+            "date": "20 Mai 2026", 
+            "image": "actus/foire.png", 
+            "desc": "BIENTÔT - Venez nous rencontrer au stand 12 pour découvrir nos nouveaux box connectés !"
+        },
+        {
+            "titre": "Journée Internationale du Chat", 
+            "date": "8 Août 2026", 
+            "image": "actus/chat.png", 
+            "desc": "BIENTÔT - Distribution de friandises bio gratuite pour tous nos pensionnaires félins."
+        },
+        {
+            "titre": "Fête Nationale du Chien", 
+            "date": "26 Août 2026", 
+            "image": "actus/chien.png", 
+            "desc": "BIENTÔT - Grande promenade collective organisée dans le parc de notre magnifique pensionnat."
+        },
+        {
+            "titre": "Repti-Day : La Fête du Reptile", 
+            "date": "12 Octobre 2026", 
+            "image": "actus/reptile.png", 
+            "desc": "BIENTÔT - Atelier découverte : comprendre le cycle UV et la mue de nos amis à écailles."
+        },
+        {
+            "titre": "Nouvel An Chinois - Année du Cheval", 
+            "date": "17 Février 2026", 
+            "image": "actus/cheval.jpg", 
+            "desc": "ÉVÉNEMENT PASSÉ - Une année de dynamisme ! Merci d'être venus nombreux pour le soin des sabots."
+        },
+    ]
+    return render(request, 'information.html', {'actualites': actualites})
