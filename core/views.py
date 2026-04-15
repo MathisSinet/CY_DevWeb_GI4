@@ -1,9 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import ObjetConnecte
-
-
-from .models import ObjetConnecte
+from accounts.utils import addPoints
+from accounts.utils import upgradeLevel
 
 # Create your views here.
 def test(request):
@@ -58,9 +56,11 @@ def garderie(request):
 
 @login_required
 def cart(request):
+    addPoints(request.user, 2)
     return render(request,"cart.html")
 
 def search(request):
+    addPoints(request.user, 2)
     objets = ObjetConnecte.objects.all()
 
     # --- 1. Ta recherche par filtres (déjà faite) ---
@@ -87,8 +87,9 @@ def search(request):
 
     return render(request, "search.html", {'objets': objets})
 
-
-
+def profile(request):
+    upgradeLevel(request.user)
+    return render(request,"profile.html")
 
 
 

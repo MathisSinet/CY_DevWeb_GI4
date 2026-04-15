@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<section class="profil-container">
+    
+    <div class="profil-card">
+        <form method="POST">
+                    
+            <h3 class="profil-title">PROFILE PUBLIQUE</h3>
+
+            <div class="profil-field">
+                <div>Pseudonyme</div>
+                <input type="text" name="pseudonyme" value="{{ user.username }}" readonly>
+            </div>
+
+            <div class="profil-field">
+                <div>Photo</div>
+                <img src="" class="profil-photo">
+            </div>
+
+            <div class="profil-field">
+                <div>Genre</div>
+                <div class="radio-group">
+                    <label><input type="radio" name="genre"> Homme</label readonly>
+                    <label><input type="radio" name="genre"> Femme</label readonly>
+                </div>
+            </div>
+
+            <div class="profil-field">
+                <div>Date de naissance</div>
+                <input type="date" name="date_naissance" readonly>
+            </div>
+
+            <div class="profil-field">
+                <div>Age</div>
+                <input type="text" name="age" readonly>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="private_profil-card">
+        <form method="POST">
+                    
+            <h3 class="profil-title">PROFILE PRIVE</h3>
+
+            <div class="profil-field">
+                <div>Mot de passe</div>
+                <input type="text" name="Mot de passe" value="{{ user.password1 }}"readonly>
+            </div>
+
+            <div class="profil-field">
+                <div>Prénom</div>
+                <input type="text" name="prénom" value="{{ user.first_name }}" readonly>
+            </div>
+
+            <div class="profil-field">
+                <div>Nom</div>
+                <input type="text" name="nom" value="{{ user.last_name }}" readonly>
+            </div>
+
+            <div class="profil-field">
+                <div>Email</div>
+                <input type="text" name="email" value="{{ user.email }}" readonly>
+            </div>
+
+            <div class="profil-field">
+                <div>Points</div>
+                <input type="text" name="points" value="{{ user.points }}" readonly>
+            </div>
+
+            <div class="profil-field">
+                <div>Type de profil</div>
+                <input type="text" name="current_level" value="{{ user.current_level }}" readonly>
+            </div>
+
+        </form>
+    </div>
+    
+</section>
+
+
+{% endblock %}

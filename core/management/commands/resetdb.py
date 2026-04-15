@@ -27,6 +27,7 @@ class Command(BaseCommand):
             password="admin",
             first_name = "Admin",
             last_name = "Root",
+            current_level = "beginner",
             verified = True
         )
         User.objects.create_user(
@@ -35,6 +36,7 @@ class Command(BaseCommand):
             password="alice",
             first_name = "Alice",
             last_name = "Coco",
+            current_level = "beginner",
             verified = True
         )
         User.objects.create_user(
@@ -43,6 +45,7 @@ class Command(BaseCommand):
             password="bob",
             first_name = "Bob",
             last_name = "Coco",
+            current_level = "beginner",
             verified = True
         )
 
