@@ -29,14 +29,6 @@ class Command(BaseCommand):
             last_name = "Root",
             verified = True
         )
-        User.objects.create_superuser(
-            username="nabila",
-            email="nabila@cocomail.com",
-            password="devweb2026",
-            first_name="Nabila",
-            last_name="Expert",
-            verified=True
-        )
         User.objects.create_user(
             username="alice",
             email="alice@cocomail.com",
