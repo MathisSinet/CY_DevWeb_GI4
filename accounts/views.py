@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
+from django.utils import timezone
 from .forms import SignupForm
+from datetime import timedelta
 
 def signup_view(request: HttpRequest):
     if request.method == "POST":
@@ -10,7 +12,7 @@ def signup_view(request: HttpRequest):
         if form.is_valid():
             user = form.save()
             login(request, user)  # connexion automatique
-            return redirect("login")
+            return redirect("index")
         else:
             messages.error(request, "Formulaire invalide!" + str(form.error_messages))
     else:
@@ -19,12 +21,16 @@ def signup_view(request: HttpRequest):
     return render(request, "signup.html", {"form": form})
 
 def login_view(request: HttpRequest):
+    if request.user.is_authenticated:
+        return redirect("index")
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
 
         user = authenticate(request, email=email, password=password)
         if user:
+            if user.last_login and user.last_login < timezone.now() - timedelta(hours = 3):
+                user.add_points(10)
             login(request, user)
             return redirect("index")
         else:

@@ -47,8 +47,6 @@ def modifier_objet(request, id_unique):
     return redirect('concept', id_unique=id_unique)
 
 def search(request):
-    if request.user.is_authenticated:
-        request.user.add_points(2)
     objets = ObjetConnecte.objects.all()
 
     # --- 1. Ta recherche par filtres (déjà faite) ---
