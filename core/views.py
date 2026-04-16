@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest
 from .models import ObjetConnecte
-from accounts.utils import addPoints
-from accounts.utils import upgradeLevel
 
 # Create your views here.
 def test(request):
@@ -25,6 +24,7 @@ def concept(request, id_unique):
     })
 
 # Nouvelle vue pour gérer les modifications (Boutons Expert)
+@login_required
 def modifier_objet(request, id_unique):
     if request.method == "POST" and request.user.is_authenticated:
         objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
@@ -46,14 +46,9 @@ def modifier_objet(request, id_unique):
         
     return redirect('concept', id_unique=id_unique)
 
-
-@login_required
-def cart(request):
-    addPoints(request.user, 2)
-    return render(request,"cart.html")
-
 def search(request):
-    addPoints(request.user, 2)
+    if request.user.is_authenticated:
+        request.user.add_points(2)
     objets = ObjetConnecte.objects.all()
 
     # --- 1. Ta recherche par filtres (déjà faite) ---
@@ -120,9 +115,10 @@ def information(request):
         },
     ]
     return render(request, 'information.html', {'actualites': actualites})
+
+@login_required
 def profile(request):
-    upgradeLevel(request.user)
-    return render(request,"profile.html")
+    return render(request, "profile.html")
 
 
 

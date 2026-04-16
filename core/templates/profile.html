@@ -29,12 +29,7 @@
 
             <div class="profil-field">
                 <div>Date de naissance</div>
-                <input type="date" name="date_naissance" readonly>
-            </div>
-
-            <div class="profil-field">
-                <div>Age</div>
-                <input type="text" name="age" readonly>
+                <input type="date" name="date_naissance" value="{{ user.birthdate | date:"Y-m-d" }}" readonly>
             </div>
 
         </form>
@@ -72,7 +67,7 @@
 
             <div class="profil-field">
                 <div>Type de profil</div>
-                <input type="text" name="current_level" value="{{ user.current_level }}" readonly>
+                <p>{{ user.current_level.label }}<p>
             </div>
 
         </form>
