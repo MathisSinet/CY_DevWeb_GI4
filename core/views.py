@@ -11,12 +11,6 @@ def test(request):
 def index(request):
     return render(request, "index.html")
 
-def login(request):
-    return render(request,"login.html")
-
-def signup(request):
-    return render(request,"signup.html")
-
 def concept(request, id_unique):
     # On récupère l'objet grâce à son ID unique (ex: FONT-001)
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)

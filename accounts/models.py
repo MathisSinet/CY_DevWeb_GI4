@@ -7,13 +7,8 @@ class RegisterableEmail(models.Model):
 class User(AbstractUser):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
-    email = models.EmailField(unique=True, blank=True)
-
-    # A AJOUTER
-    #genre
-    #date de naissance
-    #age
-
+    email = models.EmailField(unique=True, blank=False)
+    birthdate = models.DateField()
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     points = models.IntegerField(default=0)
     current_level = models.CharField(max_length=20, default='beginner')

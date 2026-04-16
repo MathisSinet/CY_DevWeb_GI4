@@ -27,6 +27,7 @@ class Command(BaseCommand):
             password="admin",
             first_name = "Admin",
             last_name = "Root",
+            birthdate = "1990-01-01",
             current_level = "beginner",
             verified = True
         )
@@ -36,6 +37,7 @@ class Command(BaseCommand):
             password="alice",
             first_name = "Alice",
             last_name = "Coco",
+            birthdate = "2005-02-08",
             current_level = "beginner",
             verified = True
         )
@@ -45,6 +47,7 @@ class Command(BaseCommand):
             password="bob",
             first_name = "Bob",
             last_name = "Coco",
+            birthdate = "2000-10-10",
             current_level = "beginner",
             verified = True
         )
