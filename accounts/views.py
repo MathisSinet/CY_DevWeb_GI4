@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .forms import SignupForm
 from datetime import timedelta
@@ -42,7 +43,7 @@ def logout_view(request: HttpRequest):
     logout(request)
     return redirect("login")
 
-
+@login_required
 def modif_view(request: HttpRequest):
     if request.method == "POST":
         #pour changer mot de passe : donner l'ancien d'abord
@@ -55,7 +56,7 @@ def modif_view(request: HttpRequest):
             return render(request, "modif.html")
 
         if confirm_password != new_password:
-            messages.error(request, "Nouveau mot de passe incorrect")
+            messages.error(request, "Les mots de passe ne correspondent pas")
             return render(request, "modif.html")
         
         request.user.set_password(new_password)
@@ -66,9 +67,9 @@ def modif_view(request: HttpRequest):
     
     return render(request, "modif.html")
 
+@login_required
 def profile_view(request: HttpRequest):
     if request.method == "POST":
-
         first_name = request.POST["name"].strip()
         last_name = request.POST["surname"].strip()
         email = request.POST["email"].strip()
@@ -87,4 +88,3 @@ def profile_view(request: HttpRequest):
         return redirect("profile")
     
     return render(request, "profile.html")
-
