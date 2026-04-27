@@ -93,9 +93,13 @@
 }
 
 .btn-secondary:hover {
-    background: #4A3B33 !important;
+    background: #4a3333 !important;
     color: white !important;
     transform: translateY(-2px);
+}
+
+.filter-group:last-of-type {
+    margin-bottom: 20px;
 }
 
 /* Responsive */

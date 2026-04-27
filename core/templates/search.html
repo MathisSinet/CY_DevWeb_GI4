@@ -12,7 +12,7 @@
 
     <div class="search-layout">
         <aside class="filters-sidebar">
-            <form method="GET" action="{% url 'search' %}">
+            <form id="filter-form" method="GET" action="{% url 'search' %}">
                 <h3><i class="fas fa-filter"></i> Filtres </h3>
                 <div class="filter-group">
                     <label for="animal"> Animal concerné</label>
@@ -44,11 +44,10 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn-primary">Appliquer les filtres</button>
             </form>
         </aside>
 
-        <div class="pet-grid">
+        <div class="pet-grid" id="results-container">
             {% for objet in objets %}
             <article class="pet-card">
                 <div class="card-image">
@@ -103,5 +102,39 @@
         </div>
     </div>
 </section>
+
+<script>
+    const filterForm = document.getElementById('filter-form');
+    const resultsContainer = document.getElementById('results-container');
+
+    function updateResults() {
+        const formData = new FormData(filterForm);
+        const params = new URLSearchParams(formData).toString();
+        const url = `${filterForm.action}?${params}`;
+
+        fetch(url, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newResults = doc.getElementById('results-container').innerHTML;
+            
+            resultsContainer.innerHTML = newResults;
+            window.history.pushState({}, '', url);
+        })
+        .catch(error => console.error('Erreur:', error));
+    }
+
+    filterForm.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', updateResults);
+    });
+
+    filterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        updateResults();
+    });
+</script>
 
 {% endblock %}

@@ -1,5 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+
+from django.template.loader import render_to_string 
+from django.http import HttpResponse
+
 from .models import ObjetConnecte
 
 
@@ -69,7 +73,7 @@ def search(request):
     statut = request.GET.get('statut')
 
     if animal:
-        objets = objets.filter(animal_concerne=animal)
+        objets = objets.filter(animal_concerne__icontains=animal)
     
     if categorie:
         objets = objets.filter(categorie=categorie)
@@ -80,11 +84,16 @@ def search(request):
 
     # --- 2. AJOUT : La recherche par mots-clés (Consigne !) ---
     # Ça permet de taper "Thermostat" ou "température" dans la barre
-    q = request.GET.get('q')
-    if q:
-        # On cherche dans le nom OU dans la description
-        objets = objets.filter(nom__icontains=q) | objets.filter(description__icontains=q)
-
+    
+    
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # On calcule uniquement le HTML des résultats
+        html = render_to_string("search.html", {'objets': objets}, request=request)
+        # On découpe le HTML pour ne prendre que ce qui est dans le bloc search_results
+        # Mais plus simple : on renvoie tout et le JS fera le tri, 
+        # ou on utilise une astuce de template.
+        return render(request, "search.html", {'objets': objets})
+    
     return render(request, "search.html", {'objets': objets})
 
 
