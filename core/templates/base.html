@@ -9,11 +9,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hamburger.css' %}">
+    <script src="https://unpkg.com/vue@3"></script>
     {% block head %}
     {% endblock %}
 </head>
+
 <body class="home-page">
-    <div class="content-wrapper">
+<div class="content-wrapper">
+
     <header>
         <div class="header-top">
             <div class="logo-area">
@@ -46,18 +50,96 @@
         </div>
 
         <nav>
-            <div class="nav-container">
+            <div id="sidebar" class="nav-container">
                 <ul>
-                    <li><a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index'%}active"{% endif %}>
-                        <i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="{% url 'information' %}" class="{% if request.resolver_match.url_name == 'information' %}active{% endif %}">
-                        <i class="fas fa-newspaper"></i> Informations </a></li>
-                    <li><a href="{% url 'search' %}" class="{% if request.resolver_match.url_name == 'search' %}active{% endif %}">
-                        <i class="fas fa-microchip"></i> Technologie </a></li>
+                    <li>
+                        <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                            <i class="fas fa-home"></i> Accueil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'information' %}" class="{% if request.resolver_match.url_name == 'information' %}active{% endif %}">
+                            <i class="fas fa-newspaper"></i> Informations
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'search' %}" class="{% if request.resolver_match.url_name == 'search' %}active{% endif %}">
+                            <i class="fas fa-microchip"></i> Technologie
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </header>
+
+    <div id="burger-app">
+
+        <button
+            class="burger-btn"
+            :class="{ 'is-open': isOpen }"
+            @click="toggleMenu"
+            aria-label="Ouvrir le menu"
+        >
+            <span class="burger-line line-1"></span>
+            <span class="burger-line line-2"></span>
+            <span class="burger-line line-3"></span>
+        </button>
+
+        <transition name="fade">
+            <div v-if="isOpen" class="burger-overlay" @click="closeMenu"></div>
+        </transition>
+
+        <transition name="slide">
+            <nav v-if="isOpen" class="slide-menu" role="navigation" aria-label="Menu principal">
+
+                <div class="menu-header">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo Coconimal">
+                    <span class="menu-title">Coconimal</span>
+                </div>
+
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="{% url 'index' %}"
+                           class="menu-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
+                           @click="closeMenu">
+                            <i class="fas fa-home"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'information' %}"
+                           class="menu-link {% if request.resolver_match.url_name == 'information' %}active{% endif %}"
+                           @click="closeMenu">
+                            <i class="fas fa-newspaper"></i> Informations
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'search' %}"
+                           class="menu-link {% if request.resolver_match.url_name == 'search' %}active{% endif %}"
+                           @click="closeMenu">
+                            <i class="fas fa-microchip"></i> Technologie
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="menu-divider">Mon compte</div>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="menu-auth-btn" @click="closeMenu">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="menu-auth-btn" @click="closeMenu">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </a>
+                {% endif %}
+
+                <div class="menu-footer">
+                    © 2026 Coconimal · Animalerie & Garderie
+                </div>
+
+            </nav>
+        </transition>
+    </div>
 
     <main>
         {% block content %}
@@ -68,9 +150,30 @@
         <div id="contact">
             <p>Une question ? <a href="mailto:contact@coconimal.com">contact@coconimal.com</a></p>
         </div>
-        <p>2026 | Projet Coconight © - Animalerie & Garderie </p>
+        <p>2026 | Projet Coconight © - Animalerie & Garderie</p>
     </footer>
-    </div>
+
+</div>
+
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return { isOpen: false };
+        },
+        methods: {
+            toggleMenu() {
+                this.isOpen = !this.isOpen;
+                document.body.style.overflow = this.isOpen ? 'hidden' : '';
+            },
+            closeMenu() {
+                this.isOpen = false;
+                document.body.style.overflow = '';
+            }
+        },
+    }).mount('#burger-app');
+</script>
+
 </body>
 </html>
-
