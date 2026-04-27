@@ -13,7 +13,6 @@ urlpatterns = [
     path('modifier/<str:id_unique>/', views.modifier_objet, name='modifier_objet'),
     path('information/', views.information, name='information'),
     path('search/', views.search, name='search'),
-    path('profile/', views.profile, name='profile'),
     path('', views.index, name='index'),
 ]
 

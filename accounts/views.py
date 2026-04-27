@@ -41,3 +41,50 @@ def login_view(request: HttpRequest):
 def logout_view(request: HttpRequest):
     logout(request)
     return redirect("login")
+
+
+def modif_view(request: HttpRequest):
+    if request.method == "POST":
+        #pour changer mot de passe : donner l'ancien d'abord
+        password = request.POST["password"].strip()
+        new_password = request.POST["new_password"].strip()
+        confirm_password = request.POST["confirm_password"].strip()
+
+        if not request.user.check_password(password):
+            messages.error(request, "Mot de passe incorrect")
+            return render(request, "modif.html")
+
+        if confirm_password != new_password:
+            messages.error(request, "Nouveau mot de passe incorrect")
+            return render(request, "modif.html")
+        
+        request.user.set_password(new_password)
+        request.user.save()
+        messages.success(request, "Mot de passe modifié !")
+
+        return redirect("login")
+    
+    return render(request, "modif.html")
+
+def profile_view(request: HttpRequest):
+    if request.method == "POST":
+
+        first_name = request.POST["name"].strip()
+        last_name = request.POST["surname"].strip()
+        email = request.POST["email"].strip()
+
+        if not first_name or not last_name or not email:
+            messages.error(request, "Aucun champ ne doit être vide !")
+            return render(request, "profile.html")
+
+        request.user.first_name = first_name
+        request.user.last_name = last_name
+        request.user.email = email 
+
+        request.user.save()
+        messages.success(request, "Modification réussite !")
+
+        return redirect("profile")
+    
+    return render(request, "profile.html")
+

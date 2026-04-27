@@ -118,5 +118,9 @@ def information(request):
 def profile(request):
     return render(request, "profile.html")
 
+def modif(request):
+    return render(request, "modif.html")
+
+
 
 

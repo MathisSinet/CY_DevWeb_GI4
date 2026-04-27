@@ -1,79 +1,90 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/login.css" %}">
+{% endblock %}
+
+
 {% block content %}
+    <section class="login" style="flex-direction: row;">
+        <fieldset>
+            <legend>PROFILE PUBLIQUE</legend>
 
+            <form method="POST">
+                <label>
+                    Pseudonyme
+                <input type="text" name="pseudonyme" value="{{ user.username }}"readonly>
+                </label>
 
-<section class="profil-container">
-    
-    <div class="profil-card">
-        <form method="POST">
-                    
-            <h3 class="profil-title">PROFILE PUBLIQUE</h3>
-
-            <div class="profil-field">
-                <div>Pseudonyme</div>
-                <input type="text" name="pseudonyme" value="{{ user.username }}" readonly>
-            </div>
-
-            <div class="profil-field">
-                <div>Photo</div>
+                <label>
+                    Photo
                 <img src="" class="profil-photo">
-            </div>
+                </label>
 
-            <div class="profil-field">
-                <div>Genre</div>
-                <div class="radio-group">
-                    <label><input type="radio" name="genre"> Homme</label readonly>
-                    <label><input type="radio" name="genre"> Femme</label readonly>
-                </div>
-            </div>
-
-            <div class="profil-field">
-                <div>Date de naissance</div>
+                <label>
+                    Date de naissance
                 <input type="date" name="date_naissance" value="{{ user.birthdate | date:"Y-m-d" }}" readonly>
-            </div>
+                </label>
+            </form>
 
-        </form>
-    </div>
+        </fieldset>
 
-    <div class="private_profil-card">
-        <form method="POST">
-                    
-            <h3 class="profil-title">PROFILE PRIVE</h3>
 
-            <div class="profil-field">
-                <div>Mot de passe</div>
-                <input type="text" name="Mot de passe" value="{{ user.password1 }}"readonly>
-            </div>
+        <fieldset>
 
-            <div class="profil-field">
-                <div>Prénom</div>
-                <input type="text" name="prénom" value="{{ user.first_name }}" readonly>
-            </div>
+            <legend>PROFILE PRIVE</legend>
 
-            <div class="profil-field">
-                <div>Nom</div>
-                <input type="text" name="nom" value="{{ user.last_name }}" readonly>
-            </div>
+            <form method="POST">
+                {% csrf_token %}
 
-            <div class="profil-field">
-                <div>Email</div>
-                <input type="text" name="email" value="{{ user.email }}" readonly>
-            </div>
+                <label>
+                    Mot de passe
+                <input type="password" name="Mot de passe" value="******"readonly>
+                <a href="{% url 'modif' %}">modifier mot de passe ?</a>
+                </label>
 
-            <div class="profil-field">
-                <div>Points</div>
+                <label>
+                    Prénom
+                <input type="text" name="name" value="{{ user.first_name }}">
+                </label>
+
+                <label>
+                    Nom
+                <input type="text" name="surname" value="{{ user.last_name }}">
+                </label>
+
+                <label>
+                    Email
+                <input type="text" name="email" value="{{ user.email }}">
+                </label>
+
+                <label>
+                    Points
                 <input type="text" name="points" value="{{ user.points }}" readonly>
-            </div>
+                </label>
 
-            <div class="profil-field">
-                <div>Type de profil</div>
-                <p>{{ user.current_level.label }}<p>
-            </div>
+                <label>
+                    Type de profil
+                <input type="text" name="type_profil" value="{{ user.current_level.label }}" readonly>
+                </label>
 
-        </form>
-    </div>
-    
-</section>
+                <div class="error">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <input type="submit" value="Enregistrer la modification">
+
+            </form>
+
+        </fieldset>
+    </section>  
 
 
 {% endblock %}
