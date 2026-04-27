@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/login.css" %}">
+{% endblock %}
+
+
+{% block content %}
+    <section class="login" style="flex-direction: row;">
+        <fieldset>
+            <legend>PROFIL PUBLIC</legend>
+
+            <form method="POST">
+                <label>
+                    Pseudonyme
+                <input type="text" name="pseudonyme" value="{{ user.username }}"readonly>
+                </label>
+
+                <label>
+                    Date de naissance
+                <input type="date" name="date_naissance" value="{{ user.birthdate | date:"Y-m-d" }}" readonly>
+                </label>
+            </form>
+
+        </fieldset>
+
+
+        <fieldset>
+
+            <legend>PROFIL PRIVÉ</legend>
+
+            <form method="POST">
+                {% csrf_token %}
+                <a href="{% url 'modif' %}">Modifier mot de passe</a>
+
+                <label>
+                    Prénom
+                <input type="text" name="name" value="{{ user.first_name }}">
+                </label>
+
+                <label>
+                    Nom
+                <input type="text" name="surname" value="{{ user.last_name }}">
+                </label>
+
+                <label>
+                    Email
+                <input type="text" name="email" value="{{ user.email }}">
+                </label>
+
+                <label>
+                    Points
+                <input type="text" name="points" value="{{ user.points }}" readonly>
+                </label>
+
+                <label>
+                    Type de profil
+                <input type="text" name="type_profil" value="{{ user.current_level.label }}" readonly>
+                </label>
+
+                <div class="error">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <input type="submit" value="Enregistrer la modification">
+
+            </form>
+
+        </fieldset>
+    </section>  
+
+
+{% endblock %}

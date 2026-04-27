@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/login.css" %}">
+{% endblock %}
+
+
+{% block content %}
+    <section class="login" style="flex-direction: row;">
+        <fieldset>
+            <legend>Changer le mot de passe</legend>
+
+            <form method="POST">
+
+                {% csrf_token %}
+                <label>
+                    Mot de passe
+                <input type="password" name="password" required>
+                </label>
+
+                <label>
+                    Nouveau mot de passe
+                <input type="password" name="new_password" required>
+                </label>
+
+                <label>
+                    Confimation du nouveau mot de passe
+                <input type="password" name="confirm_password" required>
+                </label>
+
+                <div class="error">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <input type="submit" value="Confirmer">
+
+            </form>
+
+        </fieldset>
+    </section>  
+
+
+{% endblock %}

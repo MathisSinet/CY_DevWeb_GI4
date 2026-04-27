@@ -3,13 +3,17 @@ from django.contrib.auth import get_user_model
 from django import forms
 from .models import RegisterableEmail
 import re
+from datetime import date
 
 User = get_user_model()
 
 class SignupForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "email", "phone_number", "password1", "password2"]
+        fields = ["username", "first_name", "last_name", "email", "birthdate", "phone_number", "password1", "password2"]
+        widgets = {
+            'birthdate': forms.DateInput(attrs={'type': 'date'}),
+        }
         help_texts = {
             'username': None,
             'password1': None,
@@ -43,3 +47,9 @@ class SignupForm(UserCreationForm):
         if not re.match(r'^[a-zA-Z-]+$', last_name):
             raise forms.ValidationError("Le nom de famille ne peut contenir que des lettres ou des tirets (-).")
         return last_name
+
+    def clean_birthdate(self):
+        birthdate = self.cleaned_data.get('birthdate')
+        if birthdate and birthdate > date.today():
+            raise forms.ValidationError("La date de naissance ne peut pas être dans le futur.")
+        return birthdate

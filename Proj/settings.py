@@ -137,9 +137,6 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 AUTH_USER_MODEL = "accounts.User"
 
-
-import os
-
 # Configuration pour les fichiers téléchargés (images des objets)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

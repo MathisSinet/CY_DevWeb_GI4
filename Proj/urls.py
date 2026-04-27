@@ -11,8 +11,7 @@ urlpatterns = [
     path('test/', views.test, name='test'),
     path('concept/<str:id_unique>/', views.concept, name='concept'),
     path('modifier/<str:id_unique>/', views.modifier_objet, name='modifier_objet'),
-    path('garderie/', views.garderie, name='garderie'),
-    path('cart/', views.cart, name='cart'),
+    path('information/', views.information, name='information'),
     path('search/', views.search, name='search'),
     path('', views.index, name='index'),
 ]

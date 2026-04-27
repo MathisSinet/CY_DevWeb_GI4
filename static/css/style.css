@@ -139,24 +139,6 @@ header {
     color: var(--col-light-1);
 }
 
-.cart-icon {
-    font-size: 1.5rem;
-    color: var(--col-dark);
-    text-decoration: none;
-    position: relative;
-}
-
-.cart-count {
-    position: absolute;
-    top: -8px;
-    right: -10px;
-    background: var(--col-light-1);
-    color: white;
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    border-radius: 50%;
-}
-
 /* --- BARRE DE NAVIGATION HORIZONTALE --- */
 nav {
     background: var(--col-light-3);

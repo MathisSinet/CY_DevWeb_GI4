@@ -47,6 +47,13 @@
                 {% endif %}
             </label>
             <label>
+                Date de naissance :
+                {{ form.birthdate }}
+                {% if form.birthdate.errors %}
+                    <div class="field-error">{{ form.birthdate.errors }}</div>
+                {% endif %}
+            </label>
+            <label>
                 Numéro de téléphone :
                 {{ form.phone_number }}
                 {% if form.phone_number.errors %}

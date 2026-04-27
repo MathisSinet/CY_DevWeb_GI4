@@ -46,6 +46,7 @@
 }
 
 .login input[type="text"],
+.login input[type="date"],
 .login input[type="email"],
 .login input[type="password"] {
     width: 100%;
@@ -60,6 +61,7 @@
 }
 
 .login input[type="text"]:focus,
+.login input[type="date"]:focus,
 .login input[type="email"]:focus,
 .login input[type="password"]:focus {
     border-color: var(--col-dark);

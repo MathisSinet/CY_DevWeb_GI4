@@ -27,15 +27,9 @@ class Command(BaseCommand):
             password="admin",
             first_name = "Admin",
             last_name = "Root",
+            birthdate = "1990-01-01",
+            points = 2000,
             verified = True
-        )
-        User.objects.create_superuser(
-            username="nabila",
-            email="nabila@cocomail.com",
-            password="devweb2026",
-            first_name="Nabila",
-            last_name="Expert",
-            verified=True
         )
         User.objects.create_user(
             username="alice",
@@ -43,6 +37,8 @@ class Command(BaseCommand):
             password="alice",
             first_name = "Alice",
             last_name = "Coco",
+            birthdate = "2005-02-08",
+            points = 300,
             verified = True
         )
         User.objects.create_user(
@@ -51,6 +47,7 @@ class Command(BaseCommand):
             password="bob",
             first_name = "Bob",
             last_name = "Coco",
+            birthdate = "2000-10-10",
             verified = True
         )
 

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from .models import ObjetConnecte
 
 
+from django.http import HttpRequest
 from .models import ObjetConnecte
 
 # Create your views here.
@@ -15,12 +16,6 @@ def test(request):
 
 def index(request):
     return render(request, "index.html")
-
-def login(request):
-    return render(request,"login.html")
-
-def signup(request):
-    return render(request,"signup.html")
 
 def concept(request, id_unique):
     # On récupère l'objet grâce à son ID unique (ex: FONT-001)
@@ -36,6 +31,7 @@ def concept(request, id_unique):
     })
 
 # Nouvelle vue pour gérer les modifications (Boutons Expert)
+@login_required
 def modifier_objet(request, id_unique):
     if request.method == "POST" and request.user.is_authenticated:
         objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
@@ -56,13 +52,6 @@ def modifier_objet(request, id_unique):
         objet.save() # On enregistre les modifs dans db.sqlite3
         
     return redirect('concept', id_unique=id_unique)
-
-def garderie(request):
-    return render(request,"garderie.html")
-
-@login_required
-def cart(request):
-    return render(request,"cart.html")
 
 def search(request):
     objets = ObjetConnecte.objects.all()
@@ -96,8 +85,43 @@ def search(request):
     
     return render(request, "search.html", {'objets': objets})
 
-
-
-
-
-
+def information(request):
+    actualites = [
+        {
+            "titre": "Anniversaire Coconimal", 
+            "date": "15 Avril 2026", 
+            "image": "actus/anniversaire.png", 
+            "desc": "AUJOURD'HUI ! Déjà un an que notre pensionnat détente accueille vos compagnons avec amour et technologie !"
+        },
+        {
+            "titre": "Foire Internationale des Animaux", 
+            "date": "20 Mai 2026", 
+            "image": "actus/foire.png", 
+            "desc": "BIENTÔT - Venez nous rencontrer au stand 12 pour découvrir nos nouveaux box connectés !"
+        },
+        {
+            "titre": "Journée Internationale du Chat", 
+            "date": "8 Août 2026", 
+            "image": "actus/chat.png", 
+            "desc": "BIENTÔT - Distribution de friandises bio gratuite pour tous nos pensionnaires félins."
+        },
+        {
+            "titre": "Fête Nationale du Chien", 
+            "date": "26 Août 2026", 
+            "image": "actus/chien.png", 
+            "desc": "BIENTÔT - Grande promenade collective organisée dans le parc de notre magnifique pensionnat."
+        },
+        {
+            "titre": "Repti-Day : La Fête du Reptile", 
+            "date": "12 Octobre 2026", 
+            "image": "actus/reptile.png", 
+            "desc": "BIENTÔT - Atelier découverte : comprendre le cycle UV et la mue de nos amis à écailles."
+        },
+        {
+            "titre": "Nouvel An Chinois - Année du Cheval", 
+            "date": "17 Février 2026", 
+            "image": "actus/cheval.jpg", 
+            "desc": "ÉVÉNEMENT PASSÉ - Une année de dynamisme ! Merci d'être venus nombreux pour le soin des sabots."
+        },
+    ]
+    return render(request, 'information.html', {'actualites': actualites})
