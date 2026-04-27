@@ -6,23 +6,23 @@
                 max-width: 100%;
             }
             .feature-list {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: 1fr ;
             }
             .pet-grid {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: 1fr;
             }
             .hero {
-                padding: 80px 16px !important;
+                padding: 80px 16px ;
             }
             .search-layout {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: 1fr;
             }
 
             #burger-app  { display: block; }
-            header nav   { display: none !important; }
+            header nav   { display: none;}
 
-            .user-actions { display: none !important; }
-            .search-container { display: none !important; }
+            .user-actions { display: none; }
+            .search-container { display: none; }
 
             .burger-btn {
                 position: fixed;
@@ -179,4 +179,12 @@
             .fade-leave-active { transition: opacity 0.3s ease; }
             .fade-enter-from,
             .fade-leave-to { opacity: 0; }
+
+            .menu-search-container{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                padding: 2rem 1.25rem;
+            }
         }
