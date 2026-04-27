@@ -113,14 +113,3 @@ def information(request):
         },
     ]
     return render(request, 'information.html', {'actualites': actualites})
-
-@login_required
-def profile(request):
-    return render(request, "profile.html")
-
-def modif(request):
-    return render(request, "modif.html")
-
-
-
-

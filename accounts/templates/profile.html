@@ -32,12 +32,7 @@
 
             <form method="POST">
                 {% csrf_token %}
-
-                <label>
-                    Mot de passe
-                <input type="password" name="Mot de passe" value="******"readonly>
-                <a href="{% url 'modif' %}">modifier mot de passe ?</a>
-                </label>
+                <a href="{% url 'modif' %}">Modifier mot de passe</a>
 
                 <label>
                     Prénom
