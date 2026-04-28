@@ -52,6 +52,7 @@
                         </a>
                     </div>
 
+                   
                     <p>Mode : {{ objet.mode }}</p>
                     <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST">
                         {% csrf_token %}

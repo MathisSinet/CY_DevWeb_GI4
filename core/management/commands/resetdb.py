@@ -165,6 +165,7 @@ class Command(BaseCommand):
             },
         ]
 
+
         for data in objets_data:
             ObjetConnecte.objects.create(**data)
 
