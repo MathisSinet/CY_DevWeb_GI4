@@ -24,7 +24,7 @@
                 <p class="brand-subtitle">Coconimal Smart Device • ID: {{ objet.id_unique }}</p>
             </div>
 
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and user.verified %}
             <div class="specs-wrapper">
                 
                 <div class="spec-card">

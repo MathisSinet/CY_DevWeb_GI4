@@ -140,3 +140,7 @@ AUTH_USER_MODEL = "accounts.User"
 # Configuration pour les fichiers téléchargés (images des objets)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# E-mails
+EMAIL_BACKEND = "core.email_backends.PrettyConsoleEmailBackend"
+DEFAULT_FROM_EMAIL = "contact@cocomail.com"

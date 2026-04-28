@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import password_validation
 from django.utils import timezone
-from .forms import SignupForm
 from datetime import timedelta
+from .models import User
+from .forms import SignupForm
+from .utils.email_verif import send_verification_email, verify_token
 
 def signup_view(request: HttpRequest):
     if request.method == "POST":
@@ -14,7 +16,8 @@ def signup_view(request: HttpRequest):
         if form.is_valid():
             user = form.save()
             login(request, user)  # connexion automatique
-            return redirect("index")
+            send_verification_email(user, request)
+            return redirect("check_email")
         else:
             messages.error(request, "Formulaire invalide !" + str(form.error_messages))
     else:
@@ -93,3 +96,31 @@ def profile_view(request: HttpRequest):
         return redirect("profile")
     
     return render(request, "profile.html")
+
+def verify_email_view(request: HttpRequest):
+    token = request.GET.get("token")
+    user_id = verify_token(token)
+
+    if not user_id:
+        verif_message = "Lien invalide ou expiré."
+        return render(request, "verify_email.html", {verif_message: verif_message})
+
+    user = get_object_or_404(User, pk=user_id)
+    user.verified = True
+    user.save()
+
+    verif_message = "Votre adresse email a été vérifiée avec succès !"
+    return render(request, "verify_email.html", {"verif_message": verif_message})
+
+@login_required
+def check_email_view(request: HttpRequest):
+    # Si l'utilisateur est déjà vérifié, rediriger vers le profil
+    if request.user.is_authenticated and request.user.verified:
+        return redirect("profile")
+
+    if request.method == "POST":
+        # Option pour renvoyer un nouveau lien
+        send_verification_email(request.user, request)
+        messages.success(request, "Un nouveau lien de vérification a été envoyé à votre adresse email.")
+
+    return render(request, "check_email.html")
