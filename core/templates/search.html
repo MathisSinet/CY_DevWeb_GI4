@@ -10,13 +10,15 @@
     <h2 class="section-title">Technologies</h2>
     <p class="intro-text">Explorez nos solutions connectées pour le bien-être de vos compagnons.</p>
 
-    <div class="search-layout">
+    <div class="search-layout" id="search-app">
         <aside class="filters-sidebar">
-            <form id="filter-form" method="GET" action="{% url 'search' %}">
+            <form id="filter-form" @submit.prevent="updateResults">
                 <h3><i class="fas fa-filter"></i> Filtres </h3>
+                <input type="hidden" name="q" v-model="filters.query">
+
                 <div class="filter-group">
                     <label for="animal"> Animal concerné</label>
-                    <select name="animal" id="animal">
+                    <select name="animal" id="animal" v-model="filters.animal" @change="updateResults">
                         <option value="">Tous les animaux</option>
                         <option value="chien">Chien</option>
                         <option value="chat">Chat</option>
@@ -26,117 +28,85 @@
                     </select>
                 </div>
 
+
+                {% if user.is_authenticated and user.verified %}
                 <div class="filter-group">
                     <label for="statut">Statut de l'objet</label>
-                    <select name="statut" id="statut">
+                    <select name="statut" id="statut" v-model="filters.statut" @change="updateResults">
                         <option value="">Tous les statuts</option>
                         <option value="disponible">Disponible / Actif</option>
                         <option value="indisponible">Maintenance</option>
                     </select>
                 </div>
+                {% endif %}
 
                 <div class="filter-group">
                     <label for="type">Catégorie</label>
-                    <select name="type" id="type">
+                    <select name="type" id="type" v-model="filters.type" @change="updateResults">
                         <option value="">Toutes les catégories</option>
                         <option value="iot">Objets IoT</option>
                         <option value="service">Services Garderie</option>                   
                     </select>
                 </div>
 
+                <button type="button" class="btn-reset" @click="resetFilters">
+                    <i class="fas fa-redo"></i> Réinitialiser les filtres
+                </button>
             </form>
         </aside>
 
-        <div class="pet-grid" id="results-container">
-            {% for objet in objets %}
-            <article class="pet-card">
-                <div class="card-image">
-                    {% if objet.image %}
-                        <img src="{{ objet.image.url }}" alt="{{ objet.nom }}" style="width:100%; height:150px; object-fit:cover; border-radius:10px 10px 0 0;">
-                    {% endif %}
-                </div>
-
-                <div class="card-content" style="padding: 15px;">
-                    <div class="animal-icon" style="margin-bottom: 10px; color: #D2B48C;">
-                        {% if objet.animal_concerne == 'chat' %}
-                            <i class="fas fa-cat fa-2x"></i>
-                        {% elif objet.animal_concerne == 'chien' %}
-                            <i class="fas fa-dog fa-2x"></i>
-                        {% elif objet.animal_concerne == 'reptile' %}
-                            <i class="fas fa-dragon fa-2x"></i>
-                        {% elif objet.animal_concerne == 'chien_chat' %}
-                            <i class="fas fa-dog" style="font-size: 1.2rem;"></i> 
-                            <i class="fas fa-cat" style="font-size: 1.2rem; margin-left: 5px;"></i>
-                        {% elif objet.animal_concerne == 'tous' %}
-                            <i class="fas fa-dog" style="font-size: 1rem;"></i> 
-                            <i class="fas fa-cat" style="font-size: 1rem; margin-left: 3px;"></i> 
-                            <i class="fas fa-dragon" style="font-size: 1rem; margin-left: 3px;"></i>
-                        {% else %}
-                            <i class="fas fa-microchip fa-2x"></i>
-                        {% endif %}
-                    </div>
-
-                    <h3>{{ objet.nom }}</h3>
-                    <p>{{ objet.description|truncatewords:10 }}</p>
-                    
-                    {% if user.is_authenticated and user.verified %}
-                    <div class="iot-attributes" style="font-size: 0.85rem; margin: 10px 0;">
-                        <p><i class="fas fa-battery-half"></i> Batterie : {{ objet.batterie }}%</p>
-                        <p><i class="fas fa-wifi"></i> État : 
-                            {% if objet.est_actif %} <span style="color: green;">Actif</span> 
-                            {% else %} <span style="color: red;">Maintenance</span> {% endif %}
-                        </p>
-                    </div>
-                    {% endif %}
-
-                    <div class="card-footer" style="margin-top: 15px; text-align: center;">
-                        <a href="{% url 'concept' objet.id_unique %}" class="btn-secondary" style="background: #D2B48C; color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; display: block; transition: 0.3s;">
-                            Consulter la fiche technique
-                        </a>
-                    </div>
-                </div>
-            </article>
-            {% empty %}
-            <div class="no-results" style="text-align: center; width: 100%; padding: 50px;">
-                <p>Aucun objet trouvé pour cette recherche.</p>
-            </div>
-            {% endfor %}
-        </div>
+        <div class="pet-grid" id="results-container" v-html="results"></div>
     </div>
 </section>
 
 <script>
-    const filterForm = document.getElementById('filter-form');
-    const resultsContainer = document.getElementById('results-container');
+createApp({
+    data() {
+        return {
+            filters: {
+                query: '{{ query }}',
+                animal: '',
+                statut: '',
+                type: ''
+            },
+            results: ''
+        };
+    },
+    mounted() {
+        this.updateResults();
+    },
+    methods: {
+        updateResults() {
+            const formData = new FormData();
+            formData.append('q', this.filters.query || '');
+            formData.append('animal', this.filters.animal || '');
+            formData.append('statut', this.filters.statut || '');
+            formData.append('type', this.filters.type || '');
 
-    function updateResults() {
-        const formData = new FormData(filterForm);
-        const params = new URLSearchParams(formData).toString();
-        const url = `${filterForm.action}?${params}`;
-
-        fetch(url, {
-            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => response.text())
-        .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const newResults = doc.getElementById('results-container').innerHTML;
-            
-            resultsContainer.innerHTML = newResults;
-            window.history.pushState({}, '', url);
-        })
-        .catch(error => console.error('Erreur:', error));
+            fetch('{% url "search" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(response => response.text())
+            .then(html => {
+                this.results = html;
+            })
+            .catch(error => console.error('Erreur:', error));
+        },
+        resetFilters() {
+            this.filters = {
+                animal: '',
+                statut: '',
+                type: ''
+            };
+            this.updateResults();
+        }
     }
-
-    filterForm.querySelectorAll('select').forEach(select => {
-        select.addEventListener('change', updateResults);
-    });
-
-    filterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        updateResults();
-    });
+}).mount('#search-app');
 </script>
 
 {% endblock %}

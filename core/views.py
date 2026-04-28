@@ -3,12 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string 
 from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
+from django.db.models import Avg, Q
 
 from .models import ObjetConnecte, Statistiques
 from accounts.models import User, UserLevel
 from accounts.utils.decorators import verified_required, expert_required
 
-from django.db.models import Avg
+
 
 def is_expert(user):
     try:
@@ -55,13 +56,23 @@ def modifier_objet(request, id_unique):
         
     return redirect('concept', id_unique=id_unique)
 
-def search(request):
+def search(request: HttpRequest):
     objets = ObjetConnecte.objects.all()
 
-    # --- 1. Ta recherche par filtres (déjà faite) ---
-    animal = request.GET.get('animal')
-    categorie = request.GET.get('type')
-    statut = request.GET.get('statut')
+    # Support both GET and POST for filtering
+    if request.method == 'POST':
+        data = request.POST
+    else:
+        data = request.GET
+
+    # Filtres
+    query = data.get('q')
+    animal = data.get('animal')
+    categorie = data.get('type')
+    statut = data.get('statut')
+
+    if query:
+        objets = objets.filter(Q(nom__icontains=query) | Q(description__icontains=query))
 
     if animal:
         objets = objets.filter(animal_concerne__icontains=animal)
@@ -73,19 +84,11 @@ def search(request):
         est_actif = (statut == 'disponible')
         objets = objets.filter(est_actif=est_actif)
 
-    # --- 2. AJOUT : La recherche par mots-clés (Consigne !) ---
-    # Ça permet de taper "Thermostat" ou "température" dans la barre
-    
-    
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        # On calcule uniquement le HTML des résultats
-        html = render_to_string("search.html", {'objets': objets}, request=request)
-        # On découpe le HTML pour ne prendre que ce qui est dans le bloc search_results
-        # Mais plus simple : on renvoie tout et le JS fera le tri, 
-        # ou on utilise une astuce de template.
-        return render(request, "search.html", {'objets': objets})
+        html = render_to_string("search_results.html", {'objets': objets}, request=request)
+        return HttpResponse(html)
     
-    return render(request, "search.html", {'objets': objets})
+    return render(request, "search.html", {'objets': objets, 'query': query or ''})
 
 def information(request):
     actualites = [

@@ -3,7 +3,6 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/stats.css' %}">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -67,7 +66,6 @@
 </div>
 
 <script>
-    const { createApp } = Vue
     createApp({
         data() {
             return {

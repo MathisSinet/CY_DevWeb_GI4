@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/hamburger.css' %}">
     <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const { createApp } = Vue;
+    </script>
     {% block head %}
     {% endblock %}
 </head>
@@ -27,7 +30,7 @@
 
             <div class="search-container">
                 <form action="{% url 'search' %}" method="GET">
-                    <input type="text" placeholder="Rechercher une litière, lampe UV, garde..." name="q">
+                    <input type="text" placeholder="Rechercher un objet..." name="q">
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -174,8 +177,6 @@
 </div>
 
 <script>
-    const { createApp } = Vue;
-
     createApp({
         data() {
             return { isOpen: false };

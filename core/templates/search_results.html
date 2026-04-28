@@ -1,0 +1,53 @@
+{% for objet in objets %}
+<article class="pet-card">
+    <div class="card-image">
+        {% if objet.image %}
+            <img src="{{ objet.image.url }}" alt="{{ objet.nom }}">
+        {% endif %}
+    </div>
+
+    <div class="card-content">
+        <div class="animal-icon">
+            {% if objet.animal_concerne == 'chat' %}
+                <i class="fas fa-cat fa-2x"></i>
+            {% elif objet.animal_concerne == 'chien' %}
+                <i class="fas fa-dog fa-2x"></i>
+            {% elif objet.animal_concerne == 'reptile' %}
+                <i class="fas fa-dragon fa-2x"></i>
+            {% elif objet.animal_concerne == 'chien_chat' %}
+                <i class="fas fa-dog" style="font-size: 1.2rem;"></i> 
+                <i class="fas fa-cat" style="font-size: 1.2rem; margin-left: 5px;"></i>
+            {% elif objet.animal_concerne == 'tous' %}
+                <i class="fas fa-dog" style="font-size: 1rem;"></i> 
+                <i class="fas fa-cat" style="font-size: 1rem; margin-left: 3px;"></i> 
+                <i class="fas fa-dragon" style="font-size: 1rem; margin-left: 3px;"></i>
+            {% else %}
+                <i class="fas fa-microchip fa-2x"></i>
+            {% endif %}
+        </div>
+
+        <h3>{{ objet.nom }}</h3>
+        <p>{{ objet.description|truncatewords:10 }}</p>
+        
+        {% if user.is_authenticated and user.verified %}
+        <div class="iot-attributes" style="font-size: 0.85rem; margin: 10px 0;">
+            <p><i class="fas fa-battery-half"></i> Batterie : {{ objet.batterie }}%</p>
+            <p><i class="fas fa-wifi"></i> État : 
+                {% if objet.est_actif %} <span style="color: green;">Actif</span> 
+                {% else %} <span style="color: red;">Maintenance</span> {% endif %}
+            </p>
+        </div>
+        {% endif %}
+
+        <div class="card-footer" style="margin-top: 15px; text-align: center;">
+            <a href="{% url 'concept' objet.id_unique %}" class="btn-secondary" style="background: #D2B48C; color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; display: block; transition: 0.3s;">
+                Consulter la fiche technique
+            </a>
+        </div>
+    </div>
+</article>
+{% empty %}
+<div class="no-results" style="text-align: center; width: 100%; padding: 50px;">
+    <p>Aucun objet trouvé pour cette recherche.</p>
+</div>
+{% endfor %}
