@@ -15,6 +15,7 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('', views.index, name='index'),
     path('stats/<str:id_unique>/', views.stats_view, name='stats'),
+    path('social/', views.social, name='social'),
 ]
 
 if settings.DEBUG:

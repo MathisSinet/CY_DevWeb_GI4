@@ -1,27 +1,5 @@
 @import url('colors.css');
 
-/* --- CONFIGURATION GÉNÉRALE --- */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
-.section-title {
-    font-family: 'Cinzel', serif;
-    font-size: 2.2rem;
-    color: var(--col-dark);
-    text-align: center;
-    margin-bottom: 0.5rem;
-}
-
-.intro-text {
-    text-align: center;
-    color: var(--col-light-1);
-    font-style: italic;
-    margin-bottom: 3rem;
-}
-
 /* --- MISE EN PAGE  --- */
 .search-layout {
     display: grid;

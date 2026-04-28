@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/social.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h2 class="section-title">Utilisateurs de la plateforme</h2>
+    <p class="intro-text">Découvrez les membres de notre communauté Coconimal.</p>
+    
+    <!-- Barre de recherche et filtre -->
+    <div class="search-bar-container">
+        <form method="GET" action="{% url 'social' %}" class="search-form">
+            <input type="text" 
+                   name="search" 
+                   placeholder="Rechercher par pseudo..." 
+                   value="{{ search_query }}">
+            
+            <select name="type">
+                <option value="">Tous les types</option>
+                {% for user_type in user_types %}
+                    <option value="{{ user_type.value }}" {% if type_filter == user_type.value %}selected{% endif %}>
+                        {{ user_type.label }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Rechercher</button>
+            
+            {% if search_query or type_filter %}
+                <a href="{% url 'social' %}" class="btn-reset" style="padding: 10px 20px; background: #666; color: white; border-radius: 25px; text-decoration: none;">Réinitialiser</a>
+            {% endif %}
+        </form>
+    </div>
+    
+    <!-- Tableau des utilisateurs -->
+    {% if page_obj %}
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>Pseudonyme</th>
+                    <th>Type</th>
+                    <th>Date d'inscription</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in page_obj %}
+                    <tr>
+                        <td><strong>{{ user.username }}</strong></td>
+                        <td>
+                            {% with level_name=user.get_level_name %}
+                            <span class="level-badge level-{{ level_name|lower }}">
+                                {{ user.get_level_label }}
+                            </span>
+                            {% endwith %}
+                        </td>
+                        <td>{{ user.date_joined|date:"d/m/Y" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="empty-state">
+                            Aucun utilisateur trouvé.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if type_filter %}&type={{ type_filter }}{% endif %}">&laquo; Précédent</a>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="current">{{ num }}</span>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if type_filter %}&type={{ type_filter }}{% endif %}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if type_filter %}&type={{ type_filter }}{% endif %}">Suivant &raquo;</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="empty-state">
+            <p>Aucun utilisateur trouvé.</p>
+        </div>
+    {% endif %}
+    </section>
+{% endblock %}

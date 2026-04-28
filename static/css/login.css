@@ -81,7 +81,7 @@
 /* Champs modifiables */
 .login input:not([readonly]) {
     border-color: var(--col-dark);
-    background: #fff;
+    background: var(--col-light-4);
 }
 
 .login input[type="text"]:focus,

@@ -1,12 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-
 from django.template.loader import render_to_string 
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 
 from .models import ObjetConnecte, Statistiques
-
-from .models import ObjetConnecte
 from accounts.models import User, UserLevel
 
 def is_expert(user):
@@ -138,3 +136,58 @@ def stats_view(request, id_unique):
     
     # On passe cet objet unique au template
     return render(request, 'stats.html', {'objet': objet})
+
+def social(request):
+    # Récupérer les paramètres de recherche et filtrage
+    search_query = request.GET.get('search', '')
+    type_filter = request.GET.get('type', '')
+    
+    # Base queryset
+    users = User.objects.all().order_by('-date_joined')
+    
+    # Appliquer le filtre de recherche (pseudo insensible à la casse)
+    if search_query:
+        users = users.filter(username__icontains=search_query)
+    
+    # Appliquer le filtre par type (niveau d'utilisateur)
+    if type_filter:
+        # Mapper les valeurs du filtre aux niveaux
+        level_mapping = {
+            'BEGINNER': UserLevel.BEGINNER,
+            'INTERMEDIATE': UserLevel.INTERMEDIATE,
+            'ADVANCED': UserLevel.ADVANCED,
+            'EXPERT': UserLevel.EXPERT,
+        }
+        if type_filter in level_mapping:
+            # Filtrer par niveau en utilisant les points
+            level = level_mapping[type_filter]
+            if type_filter == 'BEGINNER':
+                users = users.filter(points__lt=100)
+            elif type_filter == 'INTERMEDIATE':
+                users = users.filter(points__gte=100, points__lt=500)
+            elif type_filter == 'ADVANCED':
+                users = users.filter(points__gte=500, points__lt=1000)
+            elif type_filter == 'EXPERT':
+                users = users.filter(points__gte=1000)
+    
+    # Pagination - 20 utilisateurs par page
+    paginator = Paginator(users, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    # Préparer les types pour le filtre dropdown
+    user_types = [
+        {'value': 'BEGINNER', 'label': 'Débutant'},
+        {'value': 'INTERMEDIATE', 'label': 'Intermédiaire'},
+        {'value': 'ADVANCED', 'label': 'Avancé'},
+        {'value': 'EXPERT', 'label': 'Expert'},
+    ]
+    
+    context = {
+        'page_obj': page_obj,
+        'search_query': search_query,
+        'type_filter': type_filter,
+        'user_types': user_types,
+    }
+    
+    return render(request, 'social.html', context)

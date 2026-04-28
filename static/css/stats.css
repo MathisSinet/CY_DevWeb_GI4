@@ -8,24 +8,24 @@
     align-items: center;
     padding: 60px 20px;
     min-height: 80vh;
-    background-color: #fdfaf7;
+    background-color: var(--col-light-3);
 }
 
 /* 2. La Carte principale */
 .stats-card-single {
     max-width: 800px;
     width: 100%;
-    background: white;
+    background: var(--col-light-4);
     border-radius: 25px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    border: 1px solid #E6D5C3;
+    border: 1px solid var(--col-light-2);
     padding: 40px; /* On donne de l'air à l'intérieur */
 }
 
 /* 3. L'ENCADRÉ BLANC (Canvas) */
 .graph-canvas-box {
-    background: white;
-    border: 1px solid #f0e6db; /* Ligne pleine, pas de pointillés */
+    background: var(--col-light-4);
+    border: 1px solid var(--col-light-2); /* Ligne pleine, pas de pointillés */
     border-radius: 20px;
     padding: 30px;
     position: relative;
@@ -44,15 +44,15 @@
     width: 180px;
     height: 180px;
     object-fit: contain;
-    background: #f9f4ef;
+    background: var(--col-light-3);
     border-radius: 12px;
     padding: 5px;
-    border: 1px solid #E6D5C3;
+    border: 1px solid var(--col-light-2);
 }
 
 .stats-header-inner h3 {
     font-family: 'Cinzel', serif;
-    color: #4A3B33;
+    color: var(--col-dark);
     margin: 0;
     font-size: 1.3rem;
     text-align: left;
@@ -64,7 +64,7 @@
     justify-content: space-between;
     align-items: flex-end; /* FORCE LE DÉPART D'EN BAS */
     height: 250px;
-    border-bottom: 2px solid #4A3B33; /* Ligne de sol bien visible */
+    border-bottom: 2px solid var(--col-dark); /* Ligne de sol bien visible */
     position: relative;
     margin-bottom: 40px; /* Espace pour les jours en dessous */
 }
@@ -81,7 +81,7 @@
 
 .vue-bar {
     width: 60%; /* Largeur des barres */
-    background: #4A3B33;
+    background: var(--col-dark);
     border-radius: 5px 5px 0 0;
     transition: all 0.5s ease;
     cursor: pointer;
@@ -89,7 +89,7 @@
 }
 
 .vue-bar:hover {
-    background: #D2B48C;
+    background: var(--col-light-1);
 }
 
 /* 6. Les Jours (bien en ligne en bas) */
@@ -97,7 +97,7 @@
     position: absolute;
     bottom: -30px; /* Juste sous la ligne du sol */
     font-size: 0.8rem;
-    color: #4A3B33;
+    color: var(--col-dark);
     font-weight: bold;
     text-transform: uppercase;
     white-space: nowrap;
@@ -109,8 +109,8 @@
     top: -35px;
     left: 50%;
     transform: translateX(-50%);
-    background: #4A3B33;
-    color: white;
+    background: var(--col-dark);
+    color: var(--col-light-4);
     padding: 4px 8px;
     border-radius: 6px;
     font-size: 0.7rem;
@@ -120,8 +120,8 @@
 /* 8. Bouton Retour */
 .btn-back-mignon {
     display: inline-block;
-    background: #D2B48C;
-    color: white;
+    background: var(--col-light-1);
+    color: var(--col-light-4);
     padding: 12px 30px;
     border-radius: 25px;
     text-decoration: none;
