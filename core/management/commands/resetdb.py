@@ -3,6 +3,8 @@ from django.core.management import call_command
 from django.contrib.auth import get_user_model
 from accounts.models import RegisterableEmail
 from core.models import ObjetConnecte
+import random
+from core.models import Consommation
 
 User = get_user_model()
 
@@ -163,9 +165,22 @@ class Command(BaseCommand):
             },
         ]
 
+
         for data in objets_data:
             ObjetConnecte.objects.create(**data)
 
         self.stdout.write(self.style.SUCCESS("Base de données créée avec 6 objets !"))
+
+        jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+        
+        self.stdout.write("Création des statistiques des consommation...")
+
+        for obj in ObjetConnecte.objects.all():
+            for j in jours:
+                Consommation.objects.create(
+                    objet = obj,
+                    jour = j,
+                    consommation=round(random.uniform(2.0, 15.0),1)
+                )
 
         self.stdout.write(self.style.SUCCESS("Base de données créée !"))

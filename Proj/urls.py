@@ -14,7 +14,10 @@ urlpatterns = [
     path('information/', views.information, name='information'),
     path('search/', views.search, name='search'),
     path('', views.index, name='index'),
+    path('technologies/<str:id_unique>/stats/', views.statistiques, name='statistiques'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

@@ -46,6 +46,12 @@
                         <button type="submit" name="recharger" class="btn-action-small">🔌 Simuler Recharge</button>
                     </form>
 
+                    <form action="{% url 'statistiques' objet.id_unique %}" method="POST" style="margin-bottom: 12px;">
+                        {% csrf_token %}
+                        <button type="submit" name="statistiques" class="btn-action-small"> <i class="fas fa-chart-bar"></i>Voir les statistiques</button>
+                    </form>
+
+                   
                     <p>Mode : {{ objet.mode }}</p>
                     <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST">
                         {% csrf_token %}

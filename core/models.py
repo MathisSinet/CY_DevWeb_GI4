@@ -29,3 +29,13 @@ class ObjetConnecte(models.Model):
 
     def __str__(self):
         return self.nom
+    
+
+class Consommation(models.Model):
+    objet = models.ForeignKey(ObjetConnecte, on_delete=models.CASCADE,related_name='stats_conso')
+
+    jour = models.CharField(max_length=20)
+    consommation = models.FloatField()
+
+    def __str__(self):
+        return f"{self.objet.nom} - {self.jour}: {self.consommation}W"

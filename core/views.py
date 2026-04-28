@@ -130,3 +130,13 @@ def information(request):
         },
     ]
     return render(request, 'information.html', {'actualites': actualites})
+
+
+def statistiques(request, id_unique):
+    objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
+    consommations = objet.stats_conso.all()
+
+    return render(request, "statistic.html", {
+        'objet' : objet,
+        'consommations' : consommations
+    })
