@@ -39,17 +39,21 @@
     cursor: pointer;
 }
 
-.search-form button {
+.search-form button,
+.btn-reset {
     padding: 10px 20px;
     background-color: var(--col-dark);
     color: var(--col-light-4);
+    text-decoration: none;
+    font-size: inherit;
     border: none;
     border-radius: 25px;
     cursor: pointer;
     transition: background 0.25s ease, transform 0.2s ease;
 }
 
-.search-form button:hover {
+.search-form button:hover,
+.btn-reset:hover {
     background: var(--col-light-1);
     color: var(--col-dark);
     transform: translateY(-1px);
