@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/login.css" %}">
+{% endblock %}
+
+{% block content %}
+<section class="login">
+    <fieldset>
+        <legend>Vérification de l'adresse email</legend>
+        <p>Un lien de vérification a été envoyé à votre adresse email <strong>{{ request.user.email }}</strong>.</p>
+        <p>Veuillez cliquer sur ce lien pour confirmer votre adresse email.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" name="resend" value="Renvoyer le lien de vérification">
+        </form>
+
+        <div class="error">
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </fieldset>
+</section>
+{% endblock %}

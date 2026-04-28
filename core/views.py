@@ -6,6 +6,7 @@ from django.http import HttpRequest, HttpResponse
 
 from .models import ObjetConnecte, Statistiques
 from accounts.models import User, UserLevel
+from accounts.utils.decorators import verified_required, expert_required
 
 from django.db.models import Avg
 
@@ -31,8 +32,7 @@ def concept(request, id_unique):
         'est_expert': is_expert(request.user)
     })
 
-# Nouvelle vue pour gérer les modifications (Boutons Expert)
-@login_required
+@verified_required
 def modifier_objet(request, id_unique):
     if request.method == "POST" and request.user.is_authenticated and is_expert(request.user):
         
@@ -128,11 +128,12 @@ def information(request):
     ]
     return render(request, 'information.html', {'actualites': actualites})
 
-@login_required
+@expert_required
 def stats_view(request, id_unique):
     if not is_expert(request.user):
         return redirect('concept', id_unique=id_unique)
     
+    # On récupère seulement l'objet spécifié
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
     
     # On calcule la moyenne des consommations liées à cet objet
@@ -145,6 +146,7 @@ def stats_view(request, id_unique):
         'moyenne': round(moyenne, 1) 
     })
 
+@verified_required
 def social(request):
     # Récupérer les paramètres de recherche et filtrage
     search_query = request.GET.get('search', '')
