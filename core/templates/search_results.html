@@ -30,7 +30,7 @@
         <p>{{ objet.description|truncatewords:10 }}</p>
         
         {% if user.is_authenticated and user.verified %}
-        <div class="iot-attributes" style="font-size: 0.85rem; margin: 10px 0;">
+        <div class="iot-attributes">
             <p><i class="fas fa-battery-half"></i> Batterie : {{ objet.batterie }}%</p>
             <p><i class="fas fa-wifi"></i> État : 
                 {% if objet.est_actif %} <span style="color: green;">Actif</span> 
@@ -39,9 +39,13 @@
         </div>
         {% endif %}
 
-        <div class="card-footer" style="margin-top: 15px; text-align: center;">
-            <a href="{% url 'concept' objet.id_unique %}" class="btn-secondary" style="background: #D2B48C; color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; display: block; transition: 0.3s;">
+        <div class="card-footer">
+            <a href="{% url 'concept' objet.id_unique %}" class="btn-secondary">
+                {% if user.is_authenticated and user.verified %}
+                Consulter l'objet
+                {% else %}
                 Consulter la fiche technique
+                {% endif %}
             </a>
         </div>
     </div>

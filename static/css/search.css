@@ -105,8 +105,6 @@
     transform: translateY(-1px);
 }
 
-
-
 .pet-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 350px)); 
@@ -145,7 +143,23 @@
     color: var(--col-light-1);
 }
 
+.iot-attributes {
+    font-size: 0.85rem; 
+    margin: 10px 0;
+}
+
+.card-footer {
+    margin-top: 15px; 
+    text-align: center;
+}
+
 .btn-secondary {
+    background: var(--col-light-1); 
+    color: var(--col-light-4); 
+    padding: 8px 20px;
+    border-radius: 20px; 
+    text-decoration: none; 
+    display: block;
     transition: all 0.3s ease;
 }
 
