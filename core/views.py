@@ -1,7 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+
+from django.template.loader import render_to_string 
+from django.http import HttpResponse
+
+from .models import ObjetConnecte
+
+
 from django.http import HttpRequest
 from .models import ObjetConnecte
+from accounts.models import User, UserLevel
 
 # Create your views here.
 def test(request):
@@ -14,9 +22,13 @@ def concept(request, id_unique):
     # On récupère l'objet grâce à son ID unique (ex: FONT-001)
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
     
-    # On définit qui est expert : ici, n'importe quel utilisateur connecté
-    # (Tu pourras affiner plus tard avec les groupes si besoin)
-    est_expert = request.user.is_authenticated 
+    # On définit qui est expert
+    user: User = request.user
+    try:
+        est_expert = user.current_level == UserLevel.EXPERT
+    except:
+        est_expert = False
+
     
     return render(request, "concept.html", {
         'objet': objet,
@@ -55,7 +67,7 @@ def search(request):
     statut = request.GET.get('statut')
 
     if animal:
-        objets = objets.filter(animal_concerne=animal)
+        objets = objets.filter(animal_concerne__icontains=animal)
     
     if categorie:
         objets = objets.filter(categorie=categorie)
@@ -66,11 +78,16 @@ def search(request):
 
     # --- 2. AJOUT : La recherche par mots-clés (Consigne !) ---
     # Ça permet de taper "Thermostat" ou "température" dans la barre
-    q = request.GET.get('q')
-    if q:
-        # On cherche dans le nom OU dans la description
-        objets = objets.filter(nom__icontains=q) | objets.filter(description__icontains=q)
-
+    
+    
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # On calcule uniquement le HTML des résultats
+        html = render_to_string("search.html", {'objets': objets}, request=request)
+        # On découpe le HTML pour ne prendre que ce qui est dans le bloc search_results
+        # Mais plus simple : on renvoie tout et le JS fera le tri, 
+        # ou on utilise une astuce de template.
+        return render(request, "search.html", {'objets': objets})
+    
     return render(request, "search.html", {'objets': objets})
 
 def information(request):

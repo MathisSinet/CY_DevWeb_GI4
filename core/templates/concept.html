@@ -24,6 +24,7 @@
                 <p class="brand-subtitle">Coconimal Smart Device • ID: {{ objet.id_unique }}</p>
             </div>
 
+            {% if user.is_authenticated %}
             <div class="specs-wrapper">
                 
                 <div class="spec-card">
@@ -36,7 +37,7 @@
                     <p>Batterie : <strong>{{ objet.batterie }}%</strong></p>
                 </div>
 
-                {% if user.is_authenticated %}
+                {% if est_expert %}
                 <div class="spec-card admin-highlight">
                     <h4>🛠 Contrôle Avancé</h4>
                     
@@ -57,11 +58,12 @@
                 </div>
                 {% endif %}
             </div>
+            {% endif %}
 
             <div class="description-box">
                 <h3>📝 Descriptif Technique</h3>
                 <p>{{ objet.description }}</p>
-                {% if user.is_authenticated %}
+                {% if est_expert %}
                 <p style="margin-top:10px; font-size: 0.8rem; color: #888;">
                     Dernière interaction : {{ objet.derniere_interaction|date:"H:i" }} | Capteurs : {{ objet.capteurs_liste }}
                 </p>
@@ -69,7 +71,7 @@
             </div>
 
             <div class="concept-footer">
-                <a href="{% url 'search' %}" class="btn-back-mignon">⬅ Retour au catalogue</a>
+                <a href="{% url 'search' %}" class="btn-back-mignon">⬅ Retour à la liste</a>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 @import url('colors.css');
 
+/* --- CONFIGURATION GÉNÉRALE --- */
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -21,6 +22,7 @@
     margin-bottom: 3rem;
 }
 
+/* --- MISE EN PAGE  --- */
 .search-layout {
     display: grid;
     grid-template-columns: 280px 1fr; 
@@ -28,24 +30,64 @@
     align-items: start;
 }
 
+/* --- BARRE DE FILTRES  --- */
 .filters-sidebar {
-    background: var(--col-light-3);
+    background: white; 
     border: 1px solid var(--col-light-2);
     border-radius: 18px;
     padding: 1.5rem;
     position: sticky;
     top: 100px;
     margin-left: 0; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
 }
 
 .filters-sidebar h3 {
     font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--col-dark);
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     gap: 10px;
+    border-bottom: 1px solid var(--col-light-3);
+    padding-bottom: 10px;
+}
+
+.filter-group {
+    margin-bottom: 1.2rem;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--col-light-1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.filters-sidebar select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--col-light-2);
+    background-color: var(--col-light-3);
+    color: var(--col-dark);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    /* Flèche personnalisée Coconimal */
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23D2B48C' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+}
+
+.filters-sidebar select:hover {
+    border-color: var(--col-light-1);
+    background-color: white;
 }
 
 .filters-sidebar .btn-primary {
@@ -65,6 +107,8 @@
     background: var(--col-light-1);
     transform: translateY(-2px);
 }
+
+
 
 .pet-grid {
     display: grid;
@@ -93,9 +137,13 @@
 }
 
 .btn-secondary:hover {
-    background: #4A3B33 !important;
+    background: #4a3333 !important;
     color: white !important;
     transform: translateY(-2px);
+}
+
+.filter-group:last-of-type {
+    margin-bottom: 20px;
 }
 
 /* Responsive */
