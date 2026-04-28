@@ -48,11 +48,6 @@
 }
 
 /* Champs modifiables */
-.login label.editable > span::after {
-    content: " ✏️";
-    font-size: 0.8rem;
-}
-
 .login input[type="text"],
 .login input[type="date"],
 .login input[type="email"],
@@ -69,7 +64,7 @@
     box-sizing: border-box;
 }
 
-/* Champs en lecture seule : apparence distincte */
+/* Champs en lecture seule*/
 .login input[readonly] {
     background: rgba(74, 59, 51, 0.06);
     color: rgba(74, 59, 51, 0.55);
@@ -77,7 +72,7 @@
     border-style: dashed;
 }
 
-/* Champs modifiables : légère surbrillance */
+/* Champs modifiables */
 .login input:not([readonly]) {
     border-color: var(--col-dark);
     background: #fff;
@@ -89,36 +84,6 @@
 .login input[type="password"]:focus {
     border-color: var(--col-dark);
     box-shadow: 0 0 0 5px rgba(74, 59, 51, 0.12);
-}
-
-/* Badge "non modifiable" */
-.field-readonly-badge {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: rgba(74, 59, 51, 0.5);
-    background: rgba(74, 59, 51, 0.08);
-    border-radius: 8px;
-    padding: 2px 8px;
-    margin-left: 6px;
-    vertical-align: middle;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-/* Badge "modifiable" */
-.field-editable-badge {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--col-dark);
-    background: rgba(74, 59, 51, 0.14);
-    border-radius: 8px;
-    padding: 2px 8px;
-    margin-left: 6px;
-    vertical-align: middle;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
 }
 
 /* Bouton modifier mot de passe */
