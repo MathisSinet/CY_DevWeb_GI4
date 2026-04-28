@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import password_validation
 from django.utils import timezone
 from .forms import SignupForm
 from datetime import timedelta
@@ -15,7 +16,7 @@ def signup_view(request: HttpRequest):
             login(request, user)  # connexion automatique
             return redirect("index")
         else:
-            messages.error(request, "Formulaire invalide!" + str(form.error_messages))
+            messages.error(request, "Formulaire invalide !" + str(form.error_messages))
     else:
         form = SignupForm()
 
@@ -59,6 +60,12 @@ def modif_view(request: HttpRequest):
             messages.error(request, "Les mots de passe ne correspondent pas")
             return render(request, "modif.html")
         
+        try:
+            password_validation.validate_password(new_password, request.user)
+        except Exception as e:
+            messages.error(request, str(e))
+            return render(request, "modif.html")
+        
         request.user.set_password(new_password)
         request.user.save()
         messages.success(request, "Mot de passe modifié !")
@@ -72,18 +79,16 @@ def profile_view(request: HttpRequest):
     if request.method == "POST":
         first_name = request.POST["name"].strip()
         last_name = request.POST["surname"].strip()
-        email = request.POST["email"].strip()
 
-        if not first_name or not last_name or not email:
+        if not first_name or not last_name:
             messages.error(request, "Aucun champ ne doit être vide !")
             return render(request, "profile.html")
 
         request.user.first_name = first_name
         request.user.last_name = last_name
-        request.user.email = email 
 
         request.user.save()
-        messages.success(request, "Modification réussite !")
+        messages.success(request, "Modification réussie !")
 
         return redirect("profile")
     

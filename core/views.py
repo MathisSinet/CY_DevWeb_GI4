@@ -2,14 +2,18 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.template.loader import render_to_string 
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 
 from .models import ObjetConnecte, Statistiques
 
-
-from django.http import HttpRequest
 from .models import ObjetConnecte
 from accounts.models import User, UserLevel
+
+def is_expert(user):
+    try:
+        return user.current_level == UserLevel.EXPERT
+    except:
+        return False
 
 # Create your views here.
 def test(request):
@@ -22,23 +26,16 @@ def concept(request, id_unique):
     # On récupère l'objet grâce à son ID unique (ex: FONT-001)
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
     
-    # On définit qui est expert
-    user: User = request.user
-    try:
-        est_expert = user.current_level == UserLevel.EXPERT
-    except:
-        est_expert = False
-
-    
     return render(request, "concept.html", {
         'objet': objet,
-        'est_expert': est_expert
+        'est_expert': is_expert(request.user)
     })
 
 # Nouvelle vue pour gérer les modifications (Boutons Expert)
 @login_required
 def modifier_objet(request, id_unique):
-    if request.method == "POST" and request.user.is_authenticated:
+    if request.method == "POST" and request.user.is_authenticated and is_expert(request.user):
+        
         objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
         
         # Action : Recharger la batterie
@@ -133,6 +130,9 @@ def information(request):
 
 @login_required
 def stats_view(request, id_unique):
+    if not is_expert(request.user):
+        return redirect('concept', id_unique=id_unique)
+    
     # On récupère seulement l'objet spécifié
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
     

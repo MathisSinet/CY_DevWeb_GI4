@@ -18,8 +18,13 @@
                 </label>
 
                 <label>
-                    Date de naissance 
-                    <input type="date" name="date_naissance" value="{{ user.birthdate | date:"Y-m-d" }}" readonly>
+                    Type de profil
+                    <input type="text" name="type_profil" value="{{ user.current_level.label }}" readonly>
+                </label>
+
+                <label>
+                    Date d'inscription 
+                    <input type="date" name="date_inscription" value="{{ user.date_joined | date:"Y-m-d" }}" readonly>
                 </label>
             </form>
         </fieldset>
@@ -45,17 +50,17 @@
 
                 <label>
                     Email
-                    <input type="text" name="email" value="{{ user.email }}">
+                    <input type="text" name="email" value="{{ user.email }}" readonly>
+                </label>
+                
+                <label>
+                    Date de naissance 
+                    <input type="date" name="date_naissance" value="{{ user.birthdate | date:"Y-m-d" }}" readonly>
                 </label>
 
                 <label>
                     Points
                     <input type="text" name="points" value="{{ user.points }}" readonly>
-                </label>
-
-                <label>
-                    Type de profil
-                    <input type="text" name="type_profil" value="{{ user.current_level.label }}" readonly>
                 </label>
 
                 <div class="error">
