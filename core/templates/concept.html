@@ -41,10 +41,16 @@
                 <div class="spec-card admin-highlight">
                     <h4>🛠 Contrôle Avancé</h4>
                     
-                    <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST" style="margin-bottom: 12px;">
-                        {% csrf_token %}
-                        <button type="submit" name="recharger" class="btn-action-small">🔌 Simuler Recharge</button>
-                    </form>
+                    <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                        <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST" style="flex: 1;">
+                            {% csrf_token %}
+                            <button type="submit" name="recharger" class="btn-action-small">🔌 Recharge</button>
+                        </form>
+
+                        <a href="{% url 'stats' objet.id_unique %}" class="btn-action-small" style="flex: 1; text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center;">
+                            📊 Statistiques
+                        </a>
+                    </div>
 
                     <p>Mode : {{ objet.mode }}</p>
                     <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST">

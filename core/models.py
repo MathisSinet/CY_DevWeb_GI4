@@ -29,3 +29,13 @@ class ObjetConnecte(models.Model):
 
     def __str__(self):
         return self.nom
+    
+
+class Statistiques(models.Model):
+    # On lie la stat à l'objet. Si l'objet est supprimé, ses stats aussi (on_delete=CASCADE)
+    objet = models.ForeignKey(ObjetConnecte, on_delete=models.CASCADE, related_name='stats')
+    jour = models.DateField()
+    consommation = models.FloatField()
+
+    def __str__(self):
+        return f"{self.objet.id_unique} - {self.jour} : {self.consommation}W"

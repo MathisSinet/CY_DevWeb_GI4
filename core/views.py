@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string 
 from django.http import HttpResponse
 
-from .models import ObjetConnecte
+from .models import ObjetConnecte, Statistiques
 
 
 from django.http import HttpRequest
@@ -130,3 +130,11 @@ def information(request):
         },
     ]
     return render(request, 'information.html', {'actualites': actualites})
+
+@login_required
+def stats_view(request, id_unique):
+    # On récupère seulement l'objet spécifié
+    objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
+    
+    # On passe cet objet unique au template
+    return render(request, 'stats.html', {'objet': objet})

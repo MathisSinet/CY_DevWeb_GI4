@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/stats.css' %}">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+{% endblock %}
+
+{% block content %}
+<div id="app" class="stats-container">
+    <h1 class="section-title">Analyse Énergétique</h1>
+    <p class="intro-text">Suivi détaillé de la consommation de votre appareil Coconimal</p>
+
+    <div class="stats-card-single">
+        <div class="stats-body">
+            <div class="graph-canvas-box">
+                
+                <div class="stats-header-inner">
+                    {% if objet.image %}
+                        <img src="{{ objet.image.url }}" alt="{{ objet.nom }}">
+                    {% else %}
+                        <img src="{% static 'images/default.png' %}" alt="Default">
+                    {% endif %}
+                    <div class="header-text">
+                        <span class="stats-id-badge">{{ objet.id_unique }}</span>
+                        <h3>{{ objet.nom }}</h3>
+                    </div>
+                </div>
+
+                <div class="vue-chart">
+                    {% for stat in objet.stats.all|dictsort:"jour" %}
+                    <div class="vue-bar-wrapper">
+                        
+                        <div class="vue-bar" 
+                             :style="{ height: ({{ stat.consommation }} / 2500 * 100) + '%' }"
+                             @mouseover="activeTooltip = {{ forloop.counter }}"
+                             @mouseleave="activeTooltip = null">
+                            
+                            <transition name="fade">
+                                <div class="tooltip" v-show="activeTooltip === {{ forloop.counter }}">
+                                    {{ stat.consommation }}W
+                                </div>
+                            </transition>
+                        </div>
+
+                        <span class="vue-date">{{ stat.jour|date:"D d" }}</span>
+                    </div>
+                    {% empty %}
+                        <p class="no-stats">Aucune donnée trouvée.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="{% url 'concept' objet.id_unique %}" class="btn-back-mignon">
+            ⬅ Retour à la fiche produit
+        </a>
+    </div>
+</div>
+
+<script>
+    const { createApp } = Vue
+    createApp({
+        data() {
+            return {
+                activeTooltip: null
+            }
+        }
+    }).mount('#app')
+</script>
+{% endblock %}

@@ -1,8 +1,10 @@
+import random
+from datetime import date, timedelta
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
 from accounts.models import RegisterableEmail
-from core.models import ObjetConnecte
+from core.models import ObjetConnecte, Statistiques
 
 User = get_user_model()
 
@@ -168,4 +170,27 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Base de données créée avec 6 objets !"))
 
+        # --- 3. STATISTIQUES SUR 7 JOURS (AJOUTÉ ICI) ---
+        self.stdout.write("Génération des statistiques sur 7 jours...")
+        tous_les_objets = ObjetConnecte.objects.all()
+        aujourdhui = date.today()
+
+        for obj in tous_les_objets:
+            # On définit une consommation de base différente selon l'ID pour le réalisme
+            if "FONT" in obj.id_unique: base_conso = 120 
+            elif "LIT" in obj.id_unique: base_conso = 280
+            elif "TERRA" in obj.id_unique: base_conso = 950
+            else: base_conso = 2200 # Les Climatisations
+
+            for i in range(7):
+                jour_cible = aujourdhui - timedelta(days=i)
+                # Variation aléatoire de +/- 15% pour que le graphique ne soit pas plat
+                conso_finale = round(base_conso * random.uniform(0.85, 1.15), 1)
+                
+                Statistiques.objects.create(
+                    objet=obj,
+                    jour=jour_cible,
+                    consommation=conso_finale
+                )
+        
         self.stdout.write(self.style.SUCCESS("Base de données créée !"))
