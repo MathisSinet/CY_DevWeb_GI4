@@ -129,3 +129,34 @@
     transition: 0.3s;
     margin-top: 20px;
 }
+
+
+/* 9. AFFICHAGE MOYENNE EN BAS (C'est la seule partie modifiée) */
+.average-summary-bottom {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px; /* Espace sous les jours */
+    padding-top: 20px;
+}
+
+.average-badge-bottom {
+    background: var(--col-light-3);
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 1px solid var(--col-light-2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.average-label {
+    color: var(--col-light-1);
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.average-value {
+    color: var(--col-dark);
+    font-size: 1.1rem;
+    font-weight: 800;
+}

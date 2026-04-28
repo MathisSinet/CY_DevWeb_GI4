@@ -7,6 +7,8 @@ from django.http import HttpRequest, HttpResponse
 from .models import ObjetConnecte, Statistiques
 from accounts.models import User, UserLevel
 
+from django.db.models import Avg
+
 def is_expert(user):
     try:
         return user.current_level == UserLevel.EXPERT
@@ -131,11 +133,17 @@ def stats_view(request, id_unique):
     if not is_expert(request.user):
         return redirect('concept', id_unique=id_unique)
     
-    # On récupère seulement l'objet spécifié
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
     
-    # On passe cet objet unique au template
-    return render(request, 'stats.html', {'objet': objet})
+    # On calcule la moyenne des consommations liées à cet objet
+    moyenne_data = objet.stats.aggregate(Avg('consommation'))
+    # On récupère la valeur ou 0 si c'est vide
+    moyenne = moyenne_data['consommation__avg'] or 0
+    
+    return render(request, 'stats.html', {
+        'objet': objet,
+        'moyenne': round(moyenne, 1) 
+    })
 
 def social(request):
     # Récupérer les paramètres de recherche et filtrage

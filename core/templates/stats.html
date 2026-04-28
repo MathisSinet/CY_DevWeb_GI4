@@ -30,7 +30,6 @@
                 <div class="vue-chart">
                     {% for stat in objet.stats.all|dictsort:"jour" %}
                     <div class="vue-bar-wrapper">
-                        
                         <div class="vue-bar" 
                              :style="{ height: ({{ stat.consommation }} / 2500 * 100) + '%' }"
                              @mouseover="activeTooltip = {{ forloop.counter }}"
@@ -42,13 +41,20 @@
                                 </div>
                             </transition>
                         </div>
-
                         <span class="vue-date">{{ stat.jour|date:"D d" }}</span>
                     </div>
                     {% empty %}
                         <p class="no-stats">Aucune donnée trouvée.</p>
                     {% endfor %}
                 </div>
+
+                <div class="average-summary-bottom">
+                    <div class="average-badge-bottom">
+                        <span class="average-label">Moyenne des 7 derniers jours :</span>
+                        <span class="average-value">{{ moyenne }} W</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
