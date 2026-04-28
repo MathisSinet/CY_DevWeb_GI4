@@ -100,9 +100,9 @@
                 <ul class="menu-list">
 
                     <li class="menu-item">
-                            <form action="{% url 'search' %}" method="GET" class="menu-search-container" @click="closeMenu">
+                            <form action="{% url 'search' %}" method="GET" class="menu-search-container">
                                 <input type="text" placeholder="Rechercher une litière, lampe UV, garde..." name="q">
-                                <button type="submit"><i class="fas fa-search"></i></button>
+                                <button type="submit" @click="closeMenu"><i class="fas fa-search"></i></button>
                              </form>
                     </li>
                     <li class="menu-item">
