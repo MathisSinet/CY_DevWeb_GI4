@@ -13,7 +13,6 @@
     <div class="stats-card-single">
         <div class="stats-body">
             <div class="graph-canvas-box">
-                
                 <div class="stats-header-inner">
                     {% if objet.image %}
                         <img src="{{ objet.image.url }}" alt="{{ objet.nom }}">
@@ -26,11 +25,13 @@
                     </div>
                 </div>
 
+                <h2>Consommation Énergétique</h2>
+
                 <div class="vue-chart">
-                    {% for stat in objet.stats.all|dictsort:"jour" %}
+                    {% for stat in stats.all|dictsort:"jour" %}
                     <div class="vue-bar-wrapper">
                         <div class="vue-bar" 
-                             :style="{ height: ({{ stat.consommation }} / 2500 * 100) + '%' }"
+                             :style="{ height: ({{ stat.consommation }} / {{ conso_max }} * 100) + '%' }"
                              @mouseover="activeTooltip = {{ forloop.counter }}"
                              @mouseleave="activeTooltip = null">
                             

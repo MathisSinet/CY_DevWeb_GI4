@@ -171,8 +171,7 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Base de données créée avec 6 objets !"))
 
-        # --- 3. STATISTIQUES SUR 7 JOURS (AJOUTÉ ICI) ---
-        self.stdout.write("Génération des statistiques sur 7 jours...")
+        self.stdout.write("Génération des statistiques de consommation...")
         tous_les_objets = ObjetConnecte.objects.all()
         aujourdhui = date.today()
 
@@ -183,10 +182,10 @@ class Command(BaseCommand):
             elif "TERRA" in obj.id_unique: base_conso = 950
             else: base_conso = 2200 # Les Climatisations
 
-            for i in range(7):
+            for i in range(10):
                 jour_cible = aujourdhui - timedelta(days=i)
                 # Variation aléatoire de +/- 15% pour que le graphique ne soit pas plat
-                conso_finale = round(base_conso * random.uniform(0.85, 1.15), 1)
+                conso_finale = round(base_conso * random.uniform(0.8, 1.2), 1)
                 
                 Statistiques.objects.create(
                     objet=obj,

@@ -3,13 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string 
 from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
-from django.db.models import Avg, Q
+from django.db.models import Avg, Max, Q
+from datetime import date, timedelta
 
 from .models import ObjetConnecte, Statistiques
 from accounts.models import User, UserLevel
 from accounts.utils.decorators import verified_required, expert_required
-
-
 
 def is_expert(user):
     try:
@@ -138,14 +137,20 @@ def stats_view(request, id_unique):
     
     # On récupère seulement l'objet spécifié
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
+
+    stats = objet.stats.filter(jour__gte=date.today() - timedelta(days=7))
     
-    # On calcule la moyenne des consommations liées à cet objet
-    moyenne_data = objet.stats.aggregate(Avg('consommation'))
+    # On calcule la moyenne et le max des consommations liées à cet objet
+    moyenne_data = stats.aggregate(Avg('consommation'))
+    max_data = stats.aggregate(Max('consommation'))
     # On récupère la valeur ou 0 si c'est vide
     moyenne = moyenne_data['consommation__avg'] or 0
+    max_val = max_data['consommation__max'] or 0
     
     return render(request, 'stats.html', {
         'objet': objet,
+        'stats': stats,
+        'conso_max': max_val,
         'moyenne': round(moyenne, 1) 
     })
 
