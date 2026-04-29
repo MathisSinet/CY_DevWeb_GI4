@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
 from accounts.models import RegisterableEmail
-from core.models import ObjetConnecte, Statistiques
+from core.models import ObjetConnecte, CategorieObjet, TypeAlimentation, PuissanceSignal, ModeObjet, Statistiques
 
 User = get_user_model()
 
@@ -71,97 +71,97 @@ class Command(BaseCommand):
                 "nom": "Fontaine Smart Flow",
                 "id_unique": "FONT-001",
                 "description": "Fontaine connectée avec filtration triple action. Surveille l'hydratation en temps réel.",
-                "categorie": "iot",
+                "categorie": CategorieObjet.IOT,
                 "animal_concerne": "chien_chat",
                 "image": "objets/fontaine.png",
                 "batterie": 83,
-                "alimentation": "Secteur",
-                "conso_energie": "5W/h",
-                "signal_wifi": "Fort",
+                "alimentation": TypeAlimentation.SECTEUR,
+                "conso_energie": 5,
+                "signal_wifi": PuissanceSignal.FORT,
                 "adresse_ip": "192.168.1.50",
                 "capteurs_liste": "Niveau d'eau, Débit de pompe",
                 "valeur_actuelle": "2.5 Litres",
-                "mode": "Automatique"
+                "mode": ModeObjet.AUTO
             },
             {
                 "nom": "Litière Pure-Box",
                 "id_unique": "LIT-001",
                 "description": "Station d'hygiène auto-nettoyante avec analyse du poids et neutralisation des odeurs.",
-                "categorie": "iot",
+                "categorie": CategorieObjet.IOT,
                 "animal_concerne": "chat",
                 "image": "objets/litiere.png",
                 "batterie": 100,
-                "alimentation": "Secteur",
-                "conso_energie": "12W/h",
-                "signal_wifi": "Stable",
+                "alimentation": TypeAlimentation.SECTEUR,
+                "conso_energie": 12,
+                "signal_wifi": PuissanceSignal.MOYEN,
                 "adresse_ip": "192.168.1.51",
                 "capteurs_liste": "Balance, Capteur de présence",
                 "valeur_actuelle": "4.2 kg (Dernière pesée)",
-                "mode": "Automatique"
+                "mode": ModeObjet.AUTO
             },
             {
                 "nom": "TerraControl Pro",
                 "id_unique": "TERRA-001",
                 "description": "Centrale de gestion intelligente pour terrariums. Régule UV et chaleur.",
-                "categorie": "iot",
+                "categorie": CategorieObjet.IOT,
                 "animal_concerne": "reptile",
                 "image": "objets/terrarium.png",
                 "batterie": 92,
-                "alimentation": "Secteur",
-                "conso_energie": "45W/h",
-                "signal_wifi": "Moyen",
+                "alimentation": TypeAlimentation.SECTEUR,
+                "conso_energie": 45,
+                "signal_wifi": PuissanceSignal.MOYEN,
                 "adresse_ip": "192.168.1.60",
                 "capteurs_liste": "Sonde UV, Thermostat, Hygromètre",
                 "valeur_actuelle": "31°C / 65% Humidité",
-                "mode": "Eco"
+                "mode": ModeObjet.ECO
             },
             {
                 "nom": "Clim-IA Multi-Espèce",
                 "id_unique": "CLIM-001",
                 "description": "Unité de régulation thermique intelligente pour tout l'espace de garde.",
-                "categorie": "service",
+                "categorie": CategorieObjet.SERVICE,
                 "animal_concerne": "tous",
                 "image": "objets/climatisation.png",
                 "batterie": 100,
-                "alimentation": "Secteur",
-                "conso_energie": "120W/h",
-                "signal_wifi": "Excellent",
+                "alimentation": TypeAlimentation.SECTEUR,
+                "conso_energie": 120,
+                "signal_wifi": PuissanceSignal.EXCELLENT,
                 "adresse_ip": "192.168.1.100",
                 "capteurs_liste": "Thermomètre ambiant, Capteur de CO2",
                 "valeur_actuelle": "22.5°C / Air Pur",
-                "mode": "Automatique"
+                "mode": ModeObjet.AUTO
             },
             {
                 "nom": "Fontaine Smart Flow - Secteur B",
                 "id_unique": "FONT-002",
                 "description": "Deuxième unité d'hydratation située dans l'aile Est.",
-                "categorie": "iot",
+                "categorie": CategorieObjet.IOT,
                 "animal_concerne": "chien_chat",
                 "image": "objets/fontaine.png",
                 "batterie": 15,
-                "alimentation": "Secteur",
-                "conso_energie": "5W/h",
-                "signal_wifi": "Faible",
+                "alimentation": TypeAlimentation.BATTERIE,
+                "conso_energie": 5,
+                "signal_wifi": PuissanceSignal.FAIBLE,
                 "adresse_ip": "192.168.1.52",
                 "capteurs_liste": "Niveau de cuve, Débit d'eau",
                 "valeur_actuelle": "0.4 Litre (Niveau Bas)",
-                "mode": "Eco"
+                "mode": ModeObjet.ECO
             },
             {
                 "nom": "Clim-IA - Zone Reptiles",
                 "id_unique": "CLIM-002",
                 "description": "Unité de régulation thermique dédiée aux terrariums.",
-                "categorie": "service",
+                "categorie": CategorieObjet.SERVICE,
                 "animal_concerne": "reptile",
                 "image": "objets/climatisation.png",
                 "batterie": 100,
-                "alimentation": "Secteur",
-                "conso_energie": "90W/h",
-                "signal_wifi": "Excellent",
+                "alimentation": TypeAlimentation.SECTEUR,
+                "conso_energie": 90,
+                "signal_wifi": PuissanceSignal.EXCELLENT,
                 "adresse_ip": "192.168.1.102",
                 "capteurs_liste": "Hygromètre, Thermomètre",
                 "valeur_actuelle": "28°C / 70% Humidité",
-                "mode": "Automatique"
+                "mode": ModeObjet.AUTO
             },
         ]
 

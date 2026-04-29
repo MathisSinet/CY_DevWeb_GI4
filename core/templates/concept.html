@@ -29,7 +29,7 @@
                 
                 <div class="spec-card">
                     <h4>📡 Connectivité</h4>
-                    <p>Signal : <strong>{{ objet.signal_wifi }}</strong></p>
+                    <p>Signal : <strong>{{ objet.get_signal_wifi_display }}</strong></p>
                 </div>
                 
                 <div class="spec-card">
@@ -53,13 +53,13 @@
                     </div>
 
                    
-                    <p>Mode : {{ objet.mode }}</p>
+                    <p>Mode : {{ objet.get_mode_display }}</p>
                     <form action="{% url 'modifier_objet' objet.id_unique %}" method="POST">
                         {% csrf_token %}
                         <select name="mode" onchange="this.form.submit()" class="select-mignon">
-                            <option value="Automatique" {% if objet.mode == "Automatique" %}selected{% endif %}>Auto</option>
-                            <option value="Manuel" {% if objet.mode == "Manuel" %}selected{% endif %}>Manuel</option>
-                            <option value="Eco" {% if objet.mode == "Eco" %}selected{% endif %}>Éco</option>
+                            <option value="auto" {% if objet.mode == "auto" %}selected{% endif %}>Auto</option>
+                            <option value="man" {% if objet.mode == "man" %}selected{% endif %}>Manuel</option>
+                            <option value="eco" {% if objet.mode == "eco" %}selected{% endif %}>Éco</option>
                         </select>
                     </form>
                 </div>
