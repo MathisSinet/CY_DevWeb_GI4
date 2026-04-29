@@ -26,6 +26,9 @@ def index(request):
 def concept(request, id_unique):
     # On récupère l'objet grâce à son ID unique (ex: FONT-001)
     objet = get_object_or_404(ObjetConnecte, id_unique=id_unique)
+
+    if request.user.is_authenticated:
+        request.user.add_points(1)  # Ajouter 1 point à chaque visite d'une page d'objet
     
     return render(request, "concept.html", {
         'objet': objet,
